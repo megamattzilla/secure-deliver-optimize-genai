@@ -16,7 +16,7 @@ import f5_sphinx_theme
 classname = "Secure, Deliver and Optimize GenAI Apps with F5"
 
 # OPTIONAL: The URL to the GitHub Repository for this class
-github_repo = "https://github.com/f5devcentral/f5-agility-labs-template"
+github_repo = "https://github.com/f5devcentral/secure-deliver-optimize-genai"
 
 #
 # END CONFIG

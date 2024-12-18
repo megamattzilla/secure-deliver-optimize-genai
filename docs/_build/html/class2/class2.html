@@ -14,7 +14,7 @@
   <meta name="title" content="Class 2: Deploy and Secure a modern application"/>
   <meta name="product" content="Secure, Deliver and Optimize GenAI Apps with F5"/>
   <meta name="version" content="latest"/>
-  <meta name="updated_date"  content="2024-12-17 10:43:27"/>
+  <meta name="updated_date"  content="2024-12-18 22:20:41"/>
   <meta name="archived" content="Archived documents excluded"/>
   <meta name="doc_type" content="Manual"/>
   <meta name="lifecycle" content="release"/>
@@ -84,7 +84,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Class 2: Deploy and Secure a modern application</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#deploy-nginx-ingress-controller-with-app-protect-to-protect-web-apps-server">1 - Deploy Nginx Ingress Controller with App Protect to protect Web Apps Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deploy-arcadia-financial-modern-apps">2 - Deploy Arcadia Financial Modern Apps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#recap">3 - Recap</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="#secure-modern-apps-with-nginx-app-protect-waf">3 - Secure Modern Apps with NGINX App Protect WAF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#recap">4 - Recap</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -113,7 +114,8 @@
 <li><a class="reference internal" href="#">Class 2: Deploy and Secure a modern application</a><ul>
 <li><a class="reference internal" href="#deploy-nginx-ingress-controller-with-app-protect-to-protect-web-apps-server">1 - Deploy Nginx Ingress Controller with App Protect to protect Web Apps Server</a></li>
 <li><a class="reference internal" href="#deploy-arcadia-financial-modern-apps">2 - Deploy Arcadia Financial Modern Apps</a></li>
-<li><a class="reference internal" href="#recap">3 - Recap</a></li>
+<li><a class="reference internal" href="#secure-modern-apps-with-nginx-app-protect-waf">3 - Secure Modern Apps with NGINX App Protect WAF</a></li>
+<li><a class="reference internal" href="#recap">4 - Recap</a></li>
 </ul>
 </li>
 </ul>
@@ -135,7 +137,7 @@
 
           <span class="right">
              <a href="../_sources/class2/class2.rst.txt" rel="nofollow">Source</a> |
-             <a href="https://github.com/f5devcentral/f5-agility-labs-template">Edit on <i class="fa fa-github" aria-hidden="true"></i></a>
+             <a href="https://github.com/f5devcentral/secure-deliver-optimize-genai">Edit on <i class="fa fa-github" aria-hidden="true"></i></a>
           </span>
         </h5>
         <!-- end custom breadcrumb -->
@@ -286,13 +288,44 @@ oci://ghcr.io/nginxinc/charts/nginx-ingress -f values-plus-nap.yaml --version <s
 <p class="last">This is a basic Arcadia Financial Trading page <strong>WITHOUT</strong> GenAI Chatbot. We will enhance this apps to include GenAI chatbot and secure the chatbot in subsequent class.</p>
 </div>
 </div>
+<div class="section" id="secure-modern-apps-with-nginx-app-protect-waf">
+<h2>3 - Secure Modern Apps with NGINX App Protect WAF<a class="headerlink" href="#secure-modern-apps-with-nginx-app-protect-waf" title="Permalink to this headline">¶</a></h2>
+<p>Apply NGINX App Protect WAF rules and update Nginx ingress resource to protect Arcadia Financial Trading apps.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/webapps/arcadia
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl -n arcadia apply -f waf-policy-base-v2.yaml
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl -n arcadia get appolicy,aplogconf
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl -n arcadia apply -f arcadia-ai-local-ingress-v2.yaml
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl -n arcadia describe ingress
+</pre></div>
+</div>
+<img alt="../_images/class2-8.png" src="../_images/class2-8.png" />
+<p>Validate to ensure apps are protected.</p>
+<p>Test by injecting a simple XSS into the header as shown. You should get a custom WAF block page.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;script&gt;alert<span class="o">(</span><span class="m">1</span><span class="o">)</span>&lt;/script&gt;
+</pre></div>
+</div>
+<img alt="../_images/class2-9.png" src="../_images/class2-9.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There is more that can be done to secure modern applications with NGINX App Protect. As the focus of this class is securing GenAI apps, we will concentrate on securing GenAI chatbots. Security logs can be sent to external syslog and visualized with Grafana. However, we will not do lab exercises on this. Please refer to other NGINX labs that cover App Protect WAF.</p>
+</div>
+</div>
 <div class="section" id="recap">
-<h2>3 - Recap<a class="headerlink" href="#recap" title="Permalink to this headline">¶</a></h2>
+<h2>4 - Recap<a class="headerlink" href="#recap" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li>You deploy NGINX Ingress Controller with App Protect to secure your modern application.</li>
 <li>You deploy the Arcadia Financial microservices, which consist of multiple components: frontend, backend, money transfer, and refer-friend.</li>
 <li>You expose Arcadia frontend using a Kubernetes (K8s) Ingress resource to allow access for users outside the Kubernetes cluster.</li>
 <li>You verifed that you are able to access the site and successfully log in to the trading platform.</li>
+<li>You successfully apply WAF protection to secure a modern application.</li>
 </ol>
 <div class="admonition attention">
 <p class="first admonition-title">Attention</p>

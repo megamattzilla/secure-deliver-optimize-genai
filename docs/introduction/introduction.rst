@@ -17,7 +17,7 @@ To achieve a GenAI Practitioner, you will minimally required to work your way th
 
 
 .. Note:: 
-   F5 product family - BIG-IP, NGINX and Distributed Cloud are able to address and meet your orgnization GenAI requirement. Each of the product family do provides unique value proposition to address your GenAI needs - from scaling, security, networking and deployment. For the purpose of this class, we primarily will leverage NGINX and F5's AI Gateway to secure, deliver and optimized the GenAI apps.
+   F5 product family, which includes BIG-IP, NGINX, and Distributed Cloud (XC) Services, offers comprehensive solutions for organizations' generative AI requirements. **Each product within the family delivers a distinct value proposition**, addressing critical challenging aspects such as scalability, security, networking, and deployment. For the purpose of this course, we will primarily focus on **utilizing NGINX and F5's AI Gateway to secure, deliver, and optimize generative AI applications.**
 
 .. toctree::
    :maxdepth: 1

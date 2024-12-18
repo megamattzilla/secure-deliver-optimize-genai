@@ -165,13 +165,56 @@ Able to login to Arcadia Financial trading page
 .. Note:: 
    This is a basic Arcadia Financial Trading page **WITHOUT** GenAI Chatbot. We will enhance this apps to include GenAI chatbot and secure the chatbot in subsequent class.
 
-3 - Recap
+3 - Secure Modern Apps with NGINX App Protect WAF
+-------------------------------------------------
+
+Apply NGINX App Protect WAF rules and update Nginx ingress resource to protect Arcadia Financial Trading apps.
+
+.. code-block:: bash
+
+   cd ~/webapps/arcadia
+
+.. code-block:: bash
+
+   kubectl -n arcadia apply -f waf-policy-base-v2.yaml
+
+.. code-block:: bash
+
+   kubectl -n arcadia get appolicy,aplogconf
+
+.. code-block:: bash
+   
+   kubectl -n arcadia apply -f arcadia-ai-local-ingress-v2.yaml
+
+.. code-block:: bash
+   
+   kubectl -n arcadia describe ingress
+
+
+..  image:: ./_static/class2-8.png
+
+Validate to ensure apps are protected.
+
+Test by injecting a simple XSS into the header as shown. You should get a custom WAF block page.
+
+.. code-block:: bash
+
+   <script>alert(1)</script>
+
+..  image:: ./_static/class2-9.png
+
+.. Note:: 
+   There is more that can be done to secure modern applications with NGINX App Protect. As the focus of this class is securing GenAI apps, we will concentrate on securing GenAI chatbots. Security logs can be sent to external syslog and visualized with Grafana. However, we will not do lab exercises on this. Please refer to other NGINX labs that cover App Protect WAF.
+
+
+4 - Recap
 ---------
 1. You deploy NGINX Ingress Controller with App Protect to secure your modern application.
 2. You deploy the Arcadia Financial microservices, which consist of multiple components: frontend, backend, money transfer, and refer-friend.
 3. You expose Arcadia frontend using a Kubernetes (K8s) Ingress resource to allow access for users outside the Kubernetes cluster.
 4. You verifed that you are able to access the site and successfully log in to the trading platform.
-
+5. You successfully apply WAF protection to secure a modern application.
+   
 .. attention:: 
    Feel free to explore the YAML files and configurations manifest in the corresponding folder to gain a deeper understanding of the configuration nuances.
 
