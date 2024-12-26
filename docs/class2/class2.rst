@@ -8,6 +8,18 @@ Class 2: Deploy and Secure a modern application
 
 After login to linux Jumphost, change directory to **webapps**. Jumphost server was installed with utilities called 'direnv' - https://direnv.net/. Its a tools that will load the environment file (kubeconfig) when you switch to that directory. Its an efficient tools to switch K8S context from one cluster to the other just by changing directory.
 
+.. NOTE::
+       Refer to **Prerequsite** section to find the password for the Windows Jumphost. 
+
+       From Windows Jumphost, you can launch putty to ssh to Linux jumphost to execute those command. Default passowrd for Linux Jumphost
+
+       +----------------+---------------+
+       | **Username**   | ubuntu        |
+       +----------------+---------------+
+       | **Password**   | HelloUDF      |
+       +----------------+---------------+
+
+
 .. code-block:: bash
 
    cd webapps

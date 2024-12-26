@@ -1,5 +1,5 @@
-Class 6: AI Operations and Governance
-=====================================
+Class 6: LLM Red Teaming
+========================
 
 
 .. toctree::

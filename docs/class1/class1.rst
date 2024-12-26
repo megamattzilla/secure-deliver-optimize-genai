@@ -39,6 +39,12 @@ What is ML?
 ~~~~~~~~~~~
 Machine Learning (ML) is a branch of artificial intelligence (AI) that focuses on creating systems that can learn and improve from experience without being explicitly programmed. In ML, computers are trained to recognize patterns and make decisions or predictions based on data.
 
+What hallucination means in AI?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Hallucination in AI is when an AI model generates information that is false, inaccurate, or completely made up, even though it might sound convincing. It's like the AI "imagining" things that aren't real or aren't supported by its training data.
+
+For instance, if you ask an AI about a person named "Olivia Smith" it might confidently generate a detailed biography about a specific Oliver Smith, complete with birth date and achievements, even though it's not referring to any real person – it's just combining patterns it learned during training
+
 
 What "token" means in context in AI?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -67,8 +73,15 @@ What is Agentic RAG?
 Agentic RAG is an advanced extension of Retrieval-Augmented Generation (RAG) where the system incorporates agent-like behavior to actively interact with external tools, APIs, or knowledge sources to perform tasks beyond just retrieval and generation. This approach empowers the AI system to act autonomously, iteratively, and adaptively based on the task at hand.
 
 
-What is vectorizing in context of AI?
-In AI, vectorizing refers to the process of converting data (such as text, images, or other types of information) into numerical formats called vectors. These vectors are numerical representations that algorithms can understand and process. The goal is to transform raw data into a structured form suitable for computation and machine learning task
+What is vectorizing in AI?
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+In AI, vectorizing refers to the process of converting data (such as text, images, or other types of information) into numerical formats called vectors. These vectors are numerical representations that algorithms can understand and process. The goal is to transform raw data into a structured form suitable for computation and machine learning task.
+
+What is embedding in AI?
+~~~~~~~~~~~~~~~~~~~~~~~~
+Embedding is a process of turning words, pictures, or other things into arrays of numbers (vectors) so that computers can understand them. 
+
+AI models don't understand words or pictures directly - they work with these number arrays. The numbers are arranged so that similar items have similar number patterns and are "closer" to each other mathematically. For example, "joy" might become [0.2, 0.5, 0.8], while "happy" might be [0.25, 0.45, 0.75]. AI systems use these number representations to find similar items, understand relationships between things, and make predictions and recommendations
 
 What is "context windows" in AI?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -77,13 +90,19 @@ In AI, a context window refers to the amount of input data (text, tokens, or oth
 The context window determines how much input data the model can "see" to generate its output.
 A larger context window allows the model to consider more context, which is essential for tasks like summarization, long-form text generation, or analyzing lengthy documents.
 
-- What is embedding?
+What is "temperature" in AI?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Temperature controlled “the creativity of the response. It is a hyperparameter that controls the randomness or creativity of the model's output during text generation. 
+
+Low temperature (close to 0) makes the output more deterministic and focused. Model selects the most probable words. Responses become more percise and consistent. Lesss creative and more conservative outputs.
+
+High temperature (closer to 1 or above) increases randomness and creativity. Model is more likely to choose less probable words. Outputs become more diverse and unpredictable. Can generate more unique and imaginative responses.
 
 
 
 .. NOTE::
-       No explicit action require for this class. Ensure you read and truely understand what is AI.
-       A strong understanding the fundamental will helps. 
+       No explicit action required for this class. Ensure you read and  understand.
+       A strong understanding of those fundamental are essential. 
 
 
 ..  image:: ./_static/mission1-1.png

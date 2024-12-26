@@ -136,23 +136,23 @@ From Open WebUI, type the model name onto the search button and hover mouse to t
 
 Repeat the above to download the following LLM model
 
-+----------------------------+------------------------------+
-| **Model**                  | **Name**                     |
-+============================+==============================+
-| tinyllama                  | The TinyLlama project (1.1b) |
-+----------------------------+------------------------------+
-| phi3                       | Microsoft (3.8b)             |
-+----------------------------+------------------------------+
-| phi3.5                     | Microsoft (3.8b)             |
-+----------------------------+------------------------------+
-| llama3.2:1b                | Meta Llama3.2 (1b)           |
-+----------------------------+------------------------------+
-| qwen2.5:1.5b               | Alibaba Cloud Qwen2 (1.5b)   |
-+----------------------------+------------------------------+
-| hangyang/rakutenai-7b-chat | Rakuten AI (7b)              |
-+----------------------------+------------------------------+
-| nomic-embed-text           | Open embedding model         |
-+----------------------------+------------------------------+
++----------------------------+---------------------------------------------+
+| **Model**                  | **Name**                                    |
++============================+=============================================+
+| phi3                       | Microsoft (3.8b)                            |
++----------------------------+---------------------------------------------+
+| phi3.5                     | Microsoft (3.8b)                            |
++----------------------------+---------------------------------------------+
+| llama3.2:1b                | Meta Llama3.2 (1b)                          |
++----------------------------+---------------------------------------------+
+| qwen2.5:1.5b               | Alibaba Cloud Qwen2 (1.5b)                  |
++----------------------------+---------------------------------------------+
+| hangyang/rakutenai-7b-chat | Rakuten AI (7b)                             |
++----------------------------+---------------------------------------------+
+| nomic-embed-text           | Open embedding model                        |
++----------------------------+---------------------------------------------+
+| codellama:7b               | Meta generating and discuss code            |
++----------------------------+---------------------------------------------+
 
 Ensure you have all the model downloaded before you proceed.
 
@@ -167,17 +167,17 @@ Test interacting with LLM model. Feel free to test with different language model
 ..  image:: ./_static/class3-12.png
 
 .. attention:: 
-   Hallucinations -  xxxx .
+   Please do notes that GenAI is hallucinating and providing a wrong info - about F5 Inc headquarters. Please ignore as smaller model (smaller parameter, less intelligence) tend to hallucinate more compare to a larger model. Its also depends on dataset use for the training - "Garbage In, Garbage Out".
 
 
 5 - Deploy LLM model service
 -----------------------------
-Ollama API being exposed from previous step (step 3 above). 
+Ollama API being exposed from previous step (step 3 above) when we run "kubectl -n open-webui apply -f ollama-ingress-http.yaml" command.
 
 .. Note:: 
-   The Ollama API is currently exposed over HTTP instead of HTTPS. This is due to a limitation in the LLM orchestrator (FlowiseAI), which does not natively support self-signed certificates without some environment changes. To simplify the setup and eliminate resources consumption for encryption/decryption so that more CPU can be dedicated for inference, HTTP is used instead of HTTPS. However, all communication between the LLM orchestrator and other AI components occurs internally, within a controlled environment.
+   The Ollama API is currently exposed over HTTP instead of HTTPS. This is due to a limitation in the LLM orchestrator (FlowiseAI), which does not natively support self-signed certificates without some environment changes. To simplify the setup and eliminate resources consumption for encryption/decryption so that more CPU can be dedicated for inference, HTTP is used instead of HTTPS. However, all communication between the LLM orchestrator and other AI components occurs internally, within a controlled environment. For production deployment, ensure those communication are secure and encrypted. For FlowiseAI, you may need to define environment variable to ignore certificate verification. Please refer to official documentation.
 
-Ollama API is the model serving endpoint. Since we are running inference from CPU, it will take a while for ollama to response to user. To ensure connections is not time on NGINX ingress, we need to increase the timeout on NGINX ingress for ollama. This nginx ingress resource for ollama had been deployed in step 3 above.
+Ollama API is the model serving endpoint. Since we are running inference from CPU, it will take a while for ollama to response to user. To ensure connections is not timeout on NGINX ingress, we need to increase the timeout on NGINX ingress for ollama. This nginx ingress resource for ollama had been deployed in step 3 above.
 
 ollama-ingress-http.yaml ::
    
@@ -315,6 +315,8 @@ Save the chatflow with a name as shown.
 
 ..  image:: ./_static/class3-20.png
 
+.. Note:: 
+   We will return and continue to build RAG pipeline after we deploy vector database.  
 
 7 - Deploy Vector Database
 --------------------------
@@ -405,8 +407,8 @@ Here are some of the node/chain used.
 +---------------------------------------------+-----------------------------------------------------------------------+
 |  **Text File**                              | Load data from text file                                              |
 |                                             |                                                                       |
-|  Txt File:                                  |                                                                       |
-|                                             |                                                                       |
+|  Txt File:                                  | This is the organization context information loaded                   |
+|                                             | and vectoried into vector database                                    |
 |     arcadia-team-with-sensitive-data-v2.txt |                                                                       |
 |                                             |                                                                       |
 +---------------------------------------------+-----------------------------------------------------------------------+
@@ -414,9 +416,9 @@ Here are some of the node/chain used.
 |                                             |                                                                       |
 |  Base URL:                                  |                                                                       |
 |                                             |                                                                       |
-|     http://ollama.ai.local                  |                                                                       |
-|                                             |                                                                       |
-|  Model Name:                                |                                                                       |
+|     http://ollama.ai.local                  | This is where chunk of text being sent to vectorized                  |
+|                                             | ollama.ai.local is an API endpoint where text will be send to         |
+|  Model Name:                                | convert text into vector arrays.                                      |
 |                                             |                                                                       |
 |     nomic-embed-text                        |                                                                       |
 +---------------------------------------------+-----------------------------------------------------------------------+
@@ -424,8 +426,8 @@ Here are some of the node/chain used.
 |                                             | locations, variable and collection name                               |
 |  Qdrant Server URL:                         |                                                                       |
 |                                             |                                                                       |
-|     http://vectordb.ai.local                |                                                                       |
-|                                             |                                                                       |
+|     http://vectordb.ai.local                | This is the API endpoint where vector array being stored              |
+|                                             | and retrieved                                                         |
 |  Qdrant Collection Name:                    |                                                                       |
 |                                             |                                                                       |
 |     qdrant_arcadia                          |                                                                       |
@@ -434,10 +436,10 @@ Here are some of the node/chain used.
 |                                             |                                                                       |
 |  Base URL URL:                              |                                                                       |
 |                                             |                                                                       |
-|     http://ollama.ai.local                  |                                                                       |
+|     http://ollama.ai.local                  | ollama.ai.local also the API inference endpoint                       |
 |                                             |                                                                       |
 |  Model Name:                                |                                                                       |
-|                                             |                                                                       |
+|                                             | llama3.2:1b will be use for the inference                             |
 |     llama3.2:1b                             |                                                                       |
 |                                             |                                                                       |
 |  Temperature:                               |                                                                       |
@@ -447,7 +449,7 @@ Here are some of the node/chain used.
 |  **Conversational Retrieval QA**            | A chain for performing question-answering tasks with                  |
 |                                             | a retrieval component.                                                |
 |  Chat Model                                 |                                                                       |
-|                                             |                                                                       |
+|                                             | Link all those node to the respective node                            |
 |  Vector Store Retriever                     |                                                                       |
 |                                             |                                                                       |
 |  Memory                                     |                                                                       |
@@ -519,6 +521,10 @@ Sample RAG Chatbot conversation
 ..  image:: ./_static/class3-33.png
 
 Suggested sample question ask to the RAG chatbot
+
+.. code-block:: bash
+
+   whos is chairman of the board
 
 .. code-block:: bash
 
