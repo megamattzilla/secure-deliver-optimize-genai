@@ -246,7 +246,7 @@
         ],
         "inputAnchors": [],
         "inputs": {
-          "chunkSize": "350",
+          "chunkSize": "250",
           "chunkOverlap": "20",
           "separators": ""
         },
