@@ -100,11 +100,27 @@ Apart from exposing sensitive information (PII), the chatbot also reveal sensiti
 
 ..  image:: ./_static/class4-llm07-sensitive-info.png
 
+Below is the system prompt configured for the GenAI Chatbot (setup in FlowiseAI Conversational QA Chain).
+
+..  image:: ./_static/class4-12.png
+
+|
+
+|
+
+As shown, our GenAI chatbot is vulnerable to information leakage as well as prone for prompt injection. In next class, we will spend time to secure our GenAI chatbot.
+
+|
+
+|
 
 
 
 ..  image:: ./_static/mission4-1.png
 
+|
+
+|
 
 
 .. toctree::

@@ -43,22 +43,7 @@ Ensure you on ai-gateway directory
 
 .. code-block:: bash
 
-   cd ~/ai-gateway
-
-
-.. code-block:: bash
-
-   cd open-webui-helm-charts/
-
-..  image:: ./_static/class3-3.png
-
-.. code-block:: bash
-
-   helm repo add open-webui https://open-webui.github.io/helm-charts
-
-.. code-block:: bash
-
-   helm repo list
+   cd ~/ai-gateway/open-webui-manifest
 
 .. code-block:: bash
 
@@ -66,7 +51,7 @@ Ensure you on ai-gateway directory
 
 .. code-block:: bash
 
-   helm -n open-webui install open-webui open-webui/open-webui --values values.yaml
+   kubectl -n open-webui apply -k base
 
 .. code-block:: bash
 
@@ -95,6 +80,15 @@ Create nginx ingress resource for open-webui to expose Open-Webui service to out
 .. code-block:: bash
 
    kubectl -n open-webui apply -f ollama-ingress-http.yaml
+
+.. code-block:: bash
+
+   kubectl -n open-webui apply -f open-webui-ingress-ollama-minion.yaml
+
+
+.. code-block:: bash
+
+   kubectl -n open-webui get ingress
 
 
 ..  image:: ./_static/class3-5.png
@@ -269,9 +263,11 @@ values.yaml ::
 
    extraEnvVars:
     - name: LOG_LEVEL
-      value: 'debug'
+      value: 'info'
     - name: DEBUG
-      value: 'true'
+      value: 'false'
+    - name: NODE_TLS_REJECT_UNAUTHORIZED
+      value: '0'
 
 
 Create nginx ingress resource for flowise to expose flowise service to outside of K8S.
