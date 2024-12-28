@@ -9,15 +9,9 @@ Class 2: Deploy and Secure a modern application
 After login to linux Jumphost, change directory to **webapps**. Jumphost server was installed with utilities called 'direnv' - https://direnv.net/. Its a tools that will load the environment file (kubeconfig) when you switch to that directory. Its an efficient tools to switch K8S context from one cluster to the other just by changing directory.
 
 .. NOTE::
-       Refer to **Prerequsite** section to find the password for the Windows Jumphost. 
-
-       From Windows Jumphost, you can launch putty to ssh to Linux jumphost to execute those command. Default passowrd for Linux Jumphost
-
-       +----------------+---------------+
-       | **Username**   | ubuntu        |
-       +----------------+---------------+
-       | **Password**   | HelloUDF      |
-       +----------------+---------------+
+       Refer to **Prerequsite** section to find the password for the Windows10 and Linux Jumphost.
+       
+       Majority of the CLI will be executed from Linux Jumphost and Browser activites from Windows10 Jumphost.
 
 
 .. code-block:: bash
@@ -102,7 +96,13 @@ values-plus-nap.yaml ::
 2 - Deploy Arcadia Financial Modern Apps
 ----------------------------------------
 
-Deploy Arcadia Financial application on Kubernetes
+Deploy Arcadia Financial application on Kubernetes. Arcadia Trading consist of multiple microservices.
+
+- frontend
+- backend
+- money transfer
+- refer friends
+
 
 .. code-block:: bash
 
@@ -133,7 +133,9 @@ Deploy Arcadia Financial application on Kubernetes
 ..  image:: ./_static/class2-3.png
 
 
-Ensure all microservices are Ready and Running
+.. Note:: 
+   Ensure all pods are in **Running** and **READY** state where all pods count ready before proceed.
+
 
 .. code-block:: bash
 
@@ -142,7 +144,7 @@ Ensure all microservices are Ready and Running
 
 ..  image:: ./_static/class2-3-1.png
 
-Create nginx ingress resource to expose arcadia fronted service to outside of K8S.
+Create an Nginx ingress resource to **expose the Arcadia frontend service** externally from the Kubernetes cluster.
 
 .. code-block:: bash
 
@@ -216,7 +218,7 @@ Test by injecting a simple XSS into the header as shown. You should get a custom
 ..  image:: ./_static/class2-9.png
 
 .. Note:: 
-   There is more that can be done to secure modern applications with NGINX App Protect. As the focus of this class is securing GenAI apps, we will concentrate on securing GenAI chatbots. Security logs can be sent to external syslog and visualized with Grafana. However, we will not do lab exercises on this. Please refer to other NGINX labs that cover App Protect WAF.
+   NGINX App Protect offers additional capabilities to enhance the security of modern applications. Since this class focuses on securing GenAI applications, we will specifically address securing GenAI chatbots. While security logs can be forwarded to an external syslog server and visualized with Grafana, we will not cover these as part of the lab exercises. For more information on using App Protect WAF, please refer to other NGINX labs.
 
 
 4 - Recap
@@ -229,6 +231,9 @@ Test by injecting a simple XSS into the header as shown. You should get a custom
    
 .. attention:: 
    Feel free to explore the YAML files and configurations manifest in the corresponding folder to gain a deeper understanding of the configuration nuances.
+
+|
+|
 
 ..  image:: ./_static/mission2-1.png
 

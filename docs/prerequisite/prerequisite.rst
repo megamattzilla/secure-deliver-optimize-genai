@@ -1,12 +1,13 @@
 Prerequsite
 ===========
 
-
-Objective:
-----------
+Readiness
+---------
 Ensure LAB ennvironment is ready and Running to execute subsequent task. 
 
 **Blueprint**
+
+..  image:: /_static/intro/intro-0.png
 
 ..  image:: /_static/intro/intro-1.png
 
@@ -14,7 +15,27 @@ Ensure LAB ennvironment is ready and Running to execute subsequent task.
 .. attention:: 
    Classes depend on private registry server (Harbor Registry). Ensure its up and running before proceed.
 
-Login to Linux Jumphost
+Remote RDP to Windows10 Jumphost.
+
+Login to a remote desktop (RDP) to access Harbor registry server to ensure services are running and you able to login.
+
+..  image:: /_static/intro/intro-5.png
+
+Windows10 RDP login password can be obtainsed as following
+
+..  image:: /_static/intro/intro-6.png
+
+Window 10 Jumphost
+
+..  image:: /_static/intro/intro-7.png
+
+Launch a putty session and login with the following credential.
+
++----------------+---------------+
+| **Username**   | ubuntu        |
++----------------+---------------+
+| **Password**   | HelloUDF      |
++----------------+---------------+
 
 ..  image:: /_static/intro/intro-2.png
 
@@ -43,17 +64,6 @@ Harbor registry should shown active (running)
 
      sudo systemctl status harbor
 
-Login to a remote desktop (RDP) to access registry server to ensure you able to login.
-
-..  image:: /_static/intro/intro-5.png
-
-Windows10 RDP login password can be obtainsed as following
-
-..  image:: /_static/intro/intro-6.png
-
-Window 10 Jumphost
-
-..  image:: /_static/intro/intro-7.png
 
 
 Access to Harbor Registry server with Chrome browser
@@ -74,8 +84,8 @@ Sucessfully login to registry server.
 
 
 
-Environment:
-------------
+Lab Setup Environment
+---------------------
 
 +-------------------------------+--------------------------+------------------+
 | Service                       | FQDN / URL               |  IP Address      |

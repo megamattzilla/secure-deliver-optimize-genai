@@ -6,6 +6,9 @@ Class 5: Secure, Deliver and Optimize GenAI ChatBot
 
 ..  image:: ./_static/class5-1.png
 
+AI services and applications are a subset of modern applications. Securing AI apps requires a holistic, end-to-end approach. **You cannot fully protect AI applications without also securing the underlying web applications and APIs.** AI services are powered by APIs, which serve as the backbone of these systems. Securing APIs is critical to maintaining the integrity and reliability of AI services. Below are the 7 key security controls that are essential for ensuring the overall security of modern web applications, API and AI services.
+
+..  image:: ./_static/class5-1-1.png
 
 1 - Fundamental about F5 AI Gateway
 -----------------------------------
@@ -56,6 +59,18 @@ An editor processor is a processor that specializes in modifying prompts or resp
 Understanding AIGW Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
 
+For details, please refer to official documentation. Here a brief description.
+
+**Routes** - The routes section defines the endpoints that the AI Gateway listens to and the policy that applies to each of them.
+
+**Policies** - The policies section allows you to use different profiles based on different selectors.
+
+**Profiles** - The profiles section defines the different sets of processors and services that apply to the input and output of the AI model based on a set of rules.
+
+**Processors** - The processors section defines the processing services that can be applied to the input or output of the AI model.
+
+**Services** - The services section defines the upstream LLM services that the AI Gateway can send traffic to.
+
 
 2 - Deploy F5 AI Gateway
 ------------------------
@@ -83,7 +98,7 @@ Install AIGW Core helm charts
    helm -n ai-gateway install aigw -f values-ai-gateway-base.yaml . 
 
 .. Note:: 
-   "values-ai-gateway-base.yaml" with basic aigw.yaml configuration. "values-ai-gateway.yaml" with aigw.yaml configuration for various policy. We can either use API to apply configuration or create configuration/policy as part of the deployment. For this class, we will use API to apply configuration.
+   **values-ai-gateway-base.yaml** is the base aigw.yaml configuration - without any policy configuration. **values-ai-gateway.yaml** contains configuration with policies. We can either use API to create configuration dynamically or create configuration/policy as part of the deployment. Please do notes that configuration created via API will not survive on reboot or restart. For this class, we will use API to create AIGW configuration.
 
 .. code-block:: bash
 
@@ -102,7 +117,7 @@ AIGW Core is running and listening for traffic.
 --------------------------------
 
 .. attention:: 
-   This AI GW UI is an interim UI for AI GW. This method will change in future.
+   This AI GW UI is an interim UI for AI GW. **AIGW UI will change in future.**
 
 .. code-block:: bash
 
@@ -125,11 +140,16 @@ AIGW UI is running.
 
 ..  image:: ./_static/class5-4.png
 
+Create the following Nginx ingress resource to expose services externally from the Kubernetes cluster.
 
-Create Nginx Ingress to expose aigw core (ingress to LLM for inference), aigw configuration service (ingress for aigw configuration via API) and aigw UI (viewing of the configuration) to outside of k8s.
+1. AIGW core (ingress to LLM for inference)
+
+2. AIGW configuration service (ingress for AIGW admin configuration via API)
+
+3. AIGW UI (viewing of the configuration)
 
 .. Note:: 
-   For the purpose of subsequent lab (open-webui PII-Redactor), we leverage Nginx mergable ingress resources as we require cross-namespace access from AIGW. Hence, we have xxx-master.yaml and xxx-minion.yaml. Please refer to https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/cross-namespace-configuration/.
+   For the purpose of subsequent lab (open-webui PII-Redactor), we leverage Nginx mergable ingress resources as we require cross-namespace access from AIGW. Hence, we have *xxx-master.yaml* and *xxx-minion.yaml*. Please refer to https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/cross-namespace-configuration/ for details on Nginx mergable ingress resource.
 
 
 .. code-block:: bash
@@ -163,12 +183,12 @@ Create Nginx Ingress to expose aigw core (ingress to LLM for inference), aigw co
 
 ..  image:: ./_static/class5-5.png
 
-Confirm you can access the AI GW UI from Chrome browser
+Confirm you can access the AIGW UI from Chrome browser
 
 ..  image:: ./_static/class5-6.png
 
 .. NOTE:: 
-   Currently, no policy applied. Hence, no configuration shown on UI.
+   Currently, no policy configured. Hence, no configuration shown on UI.
 
 
 4 - Deploy F5 AI Processor
@@ -224,8 +244,7 @@ Install AIGW processor helm chart
 .. Note:: 
    Ensure all pods are in **Running** and **READY** state where all pods count ready before proceed.
 
-
-Create nginx ingress resource for aigw processor to expose processor service to outside of K8S.
+Create an Nginx ingress resource to expose AIGW Processor service externally from the Kubernetes cluster.
 
 .. code-block:: bash
 
@@ -245,12 +264,12 @@ Create nginx ingress resource for aigw processor to expose processor service to 
 5 - Update AIGW policy
 ----------------------
 
-Import AIGW policy configuration on to postman.
+Import AIGW policy configuration into Postman.
 
 ..  image:: ./_static/class5-10.png
 
 
-Import Postman collection. A copy of the postman collection located in **Documents** folder
+Import into Postman collection. A copy of the postman collection located in **Documents** folder
 
 
 ..  image:: ./_static/class5-11.png
@@ -265,6 +284,7 @@ Monitor AIGW Core logs.
 
     kubectl -n ai-gateway logs -f -l app.kubernetes.io/name=aigw
 
+Fron Postman, select **ai-deliver-optimize-default-rag-pii-pol** and click **Send** to create AIGW configuration.
 
 ..  image:: ./_static/class5-11-1.png
 
@@ -276,11 +296,11 @@ Confirm AIGW policy successfully applied via AIGW UI.
 6 - Update LLM Orchestrator to point to AI Gateway
 --------------------------------------------------
 
-Currently, GenAI chatbot pointing to the Ollama API. Updated GenAI Chatbot to point to AIGW API endpoint.
+Currently, GenAI RAG chatbot pointing to the Ollama API. Update GenAI RAG Chatbot to point to AIGW API endpoint.
 
-We are going to use OpenAI compatible API. We going to use ChatOpenAI Custom node.
+We are going to use OpenAI compatible API. We are going to use **ChatOpenAI Custom** node.
 
-Drag the "ChatOpenAI Custom" node onto the canvas.
+Drag the **ChatOpenAI Custom** node onto the FlowiseAI canvas.
 
 ..  image:: ./_static/class5-12.png
 
@@ -288,33 +308,33 @@ Here a series of task that you may need to perform.
 
 ..  image:: ./_static/class5-13.png
 
-1. Create a connect credential. We are going to use a dummy account
+1. Create a **Connect Credential.** We are going to use a dummy account
 
 ..  image:: ./_static/class5-13-1.png
 
 ..  image:: ./_static/class5-13-2.png
 
-2. You need to provide the model name - llama3.2:1b
+2. You need to provide the model name - **llama3.2:1b**
 
 ..  image:: ./_static/class5-13-3.png
 
 
-3. You need to add the AIGW API endpoint via **Additional Parameters**. 
+3. You need to add the AIGW API endpoint (**https://aigw.ai.local/v1**) via **Additional Parameters**. Disable **Streaming**.
 
 ..  image:: ./_static/class5-13-4.png
 
-4. Break the link between ChatOllama with Conversational Retrival QA Chain and connect Conversational Retrival QA Chain to ChatOpenAI Custom.
+4. Break the link between **ChatOllama with Conversational Retrival QA Chain** and connect **Conversational Retrival QA Chain** to **ChatOpenAI Custom** node.
 
 ..  image:: ./_static/class5-14.png
 
 .. Note:: 
-   You may not need to delete the ChatOpenAI node. You can leave it there.  
+   You may leave the ChatOpenAI node without deleting it.  
 
 Validate GenAI chatbot works via AIGW
 
-Interact with the GenAI chatbot with the example question. You may need to ask multiple time or hallucination may happened. At the same time, you will observed AIGW logs to demonstrate GenAI chatbot traffic indeed traverses AIGW.
+Interact with the GenAI RAG chatbot with the example question. You may need to ask multiple time or hallucination may happened. At the same time, you will observed AIGW logs to validate GenAI RAG chatbot traffic indeed traverses AIGW.
 
-..  image:: ./_static/class5-14.png
+..  image:: ./_static/class5-15.png
 
 
 7 - Deploy Simply-Chat Apps
@@ -322,7 +342,9 @@ Interact with the GenAI chatbot with the example question. You may need to ask m
 
 Simply-Chat is another sample GenAI Chatbot to interact with LLM.
 
-Deploy simply-chat apps to interact with AIGW or LLM. NGINX ingress resources will also be created to expose simply-chat apps to external K8S.
+Deploy simply-chat apps to interact with AIGW or LLM. 
+
+Create an Nginx ingress resource to expose simply-chat service externally from the Kubernetes cluster.
 
 
 .. code-block:: bash

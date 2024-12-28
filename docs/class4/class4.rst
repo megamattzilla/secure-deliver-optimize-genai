@@ -18,15 +18,15 @@ From Flowise AI, copy the embeded code snippet into a text editor or nodepad.
 
 ..  image:: ./_static/class4-2.png
 
-We need the chatflowid and apihost to use in our code.
+We need the **chatflowid** and **apihost** to use in our code.
 
 
 ..  image:: ./_static/class4-3.png
 
-Update our frontend apps to incorporate flowise "chatflowid" and "chatai_apihost"
+Update our frontend apps to incorporate flowise **chatflowid** and **chatai_apihost**
 
 .. attention:: 
-   You need to be familiar to use **vi** editor or any editor of you choice in Linux. You likely will need to update/edit "chatflowid" as its a dynamic value everytime you load the chatflow. "chatai_apihost" is static and value according to the lab setup.
+   You need to be familiar to use **vi** editor or any editor of you choice in Linux. You likely will need to update/edit "chatflowid" as its a dynamic value everytime you load the chatflow. **chatai_apihost** is static and pointing to langchain API endpoint - https://llm-orch.ai.local, which based on our lab setup.
 
 
 .. code-block:: bash
@@ -64,11 +64,11 @@ Ensure latest frontend microservice with RAG enabled used.
 
 ..  image:: ./_static/class4-6.png
 
-Login to Arcadia Financial Trading and the new RAG Chatbot shown in the bottom right.
+Login to Arcadia Financial Trading and the new GenAI RAG Chatbot shown in the bottom right.
 
 ..  image:: ./_static/class4-7.png
 
-Try to interact with RAG Chatbot.
+Try to interact with GenAI RAG Chatbot.
 
 .. code-block:: bash
 
@@ -84,14 +84,14 @@ Try to interact with RAG Chatbot.
 
 ..  image:: ./_static/class4-9.png
 
-You successfully integrate RAG chatbot into your modern arcadia trading platform application.
+You successfully integrate GenAI RAG chatbot into your modern arcadia trading platform application.
 
 ..  image:: ./_static/class4-10.png
 
 .. attention:: 
-   As shown above, RAG Chatbot exposed sensitive information (PII). We need to leverage F5's AI Gateway to redact those PII data  
+   As shown above, GenAI RAG Chatbot exposed sensitive information (PII) - **OWASP Top 10 - LLM01:2025 Sensitive Information Disclosure**. We need to leverage F5's AI Gateway to redact those PII data  
 
-Apart from exposing sensitive information (PII), the chatbot also reveal sensitive data via system prompt leakage.
+Apart from exposing sensitive information (PII), the chatbot also reveal sensitive data via system prompt leakage - **OWASP Top 10 - LLM07:2025 System Prompt Leakage**.
 
 
 .. code-block:: bash

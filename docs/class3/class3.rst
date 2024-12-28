@@ -6,6 +6,34 @@ Class 3: Architect, build and deploy AI Services
 With the growing popularity of Generative AI, your organization has decided to upgrade the Arcadia trading platform by integrating a Generative AI (GenAI) chatbot. Below is the conceptual architecture of the AI Services setup.
 
 
+.. Note:: 
+   For Lab purposes, shared server will be used instead of a dedicated server for each components.
+
+   **WebApps - K8S**
+
+   - Arcadia Financial Modern apps
+   - Langchain (FlowiseAI)
+   - Vector DB (Qdrant)
+   - Simply-Chat (Simple GenAI Chatbot frontend)
+
+   **AI Gateway - K8S**
+
+   - AI Gateway Core
+   - Open WebUI
+   - Ollama Model Inference Service 
+   - Model Repository
+
+
+   **AI Processor - K8S**
+
+   - AI Gateway Processor
+
+   **Registry Linux Jumphost**
+
+   - Harbor Registry server
+   - Linux Jumphost
+
+
 1 - Conceptual Architecture of AI Services
 ------------------------------------------
 
@@ -39,7 +67,12 @@ With the growing popularity of Generative AI, your organization has decided to u
 3 - Deploy Open-WebUI with Ollama Service
 -----------------------------------------
 
-Ensure you on ai-gateway directory
+**Open-Webui** is a self-hosted WebUI that allow user to interact with AI models. It allow user to download respective language model that use by Ollama.
+
+**Ollama** is a open-source tools that allow user to run large language model. User can expose model access via Ollama inference API.
+
+
+|
 
 .. code-block:: bash
 
@@ -63,7 +96,10 @@ Ensure you on ai-gateway directory
 .. Note:: 
    Ensure all pods are in **Running** and **READY** state where all pods count ready before proceed.
 
-Create nginx ingress resource for open-webui to expose Open-Webui service to outside of K8S.
+Create an Nginx ingress resource to **expose the Open-WebUI service** externally from the Kubernetes cluster.
+
+.. Note:: 
+   We also create ingress for Ollama. We leverage mergable ingress resource for Nginx as we will need cross namespace access. 
 
 .. code-block:: bash
 
@@ -161,15 +197,17 @@ Test interacting with LLM model. Feel free to test with different language model
 ..  image:: ./_static/class3-12.png
 
 .. attention:: 
-   Please do notes that GenAI is hallucinating and providing a wrong info - about F5 Inc headquarters. Please ignore as smaller model (smaller parameter, less intelligence) tend to hallucinate more compare to a larger model. Its also depends on dataset use for the training - "Garbage In, Garbage Out".
+   Please do notes that GenAI is hallucinating and providing wrong information - about F5 Inc headquarters. Please ignore as smaller model (smaller parameter, less intelligent) tend to hallucinate more compare to a larger model. Large models with more parameters are more capable and intelligent than smaller models, but require expensive machines with multiple GPUs to run. 
+   
+   Its also depends on dataset use for the training - "Garbage In, Garbage Out".
 
 
-5 - Deploy LLM model service
------------------------------
-Ollama API being exposed from previous step (step 3 above) when we run "kubectl -n open-webui apply -f ollama-ingress-http.yaml" command.
+5 - Deploy LLM model service (Ollama)
+-------------------------------------
+Ollama API being exposed from previous step (step 3 above) when we ran *"kubectl -n open-webui apply -f ollama-ingress-http.yaml"* command.
 
 .. Note:: 
-   The Ollama API is currently exposed over HTTP instead of HTTPS. This is due to a limitation in the LLM orchestrator (FlowiseAI), which does not natively support self-signed certificates without some environment changes. To simplify the setup and eliminate resources consumption for encryption/decryption so that more CPU can be dedicated for inference, HTTP is used instead of HTTPS. However, all communication between the LLM orchestrator and other AI components occurs internally, within a controlled environment. For production deployment, ensure those communication are secure and encrypted. For FlowiseAI, you may need to define environment variable to ignore certificate verification. Please refer to official documentation.
+   The Ollama API is currently exposed over HTTP instead of HTTPS. This is due to a limitation in the LLM orchestrator (FlowiseAI), which does not natively support self-signed certificates without some environment changes. To simplify the setup and eliminate resources consumption for encryption/decryption so that more CPU can be dedicated for inference, HTTP is used instead of HTTPS. However, all communication between the LLM orchestrator and other AI components occurs internally, within a controlled environment. For production deployment, ensure those communication are secure and encrypted. For FlowiseAI, you can define environment variable to ignore certificate verification. Please refer to official documentation.
 
 Ollama API is the model serving endpoint. Since we are running inference from CPU, it will take a while for ollama to response to user. To ensure connections is not timeout on NGINX ingress, we need to increase the timeout on NGINX ingress for ollama. This nginx ingress resource for ollama had been deployed in step 3 above.
 
@@ -198,9 +236,9 @@ ollama-ingress-http.yaml ::
                   number: 11434
 
 
-6 - Deploy LLM orchestrator service
-------------------------------------
-Deploy LLM Orchstrator to facilitate AI component communication. Flowise AI - an open source low-code tool for developer to build customized LLM orchstration flow and AI agent is used. (https://flowiseai.com/). Flowise leverages langchain framework.
+6 - Deploy LLM orchestrator service (Flowise AI)
+------------------------------------------------
+Deploy LLM Orchstrator to facilitate AI component communication. Flowise AI - an open source low-code tool for developer to build customized LLM orchstration flow and AI agent is used. (https://flowiseai.com/). Flowise complements LangChain by offering a visual interface.
 
 .. code-block:: bash
 
@@ -238,9 +276,9 @@ Flowise is installed with the following custom values. You can login with the pa
 values.yaml ::
 
    image:
-     registry: docker.io
+     registry: reg.ai.local
      repository: flowiseai/flowise
-     tag: 2.1.5   
+     tag: 2.2.3  
 
    serviceAccount:
      create: true   
@@ -269,8 +307,7 @@ values.yaml ::
     - name: NODE_TLS_REJECT_UNAUTHORIZED
       value: '0'
 
-
-Create nginx ingress resource for flowise to expose flowise service to outside of K8S.
+Create an Nginx ingress resource to **expose FlowiseAI/Langchain service** externally from the Kubernetes cluster.
 
 .. code-block:: bash
 
@@ -290,7 +327,7 @@ Confirm that you can login and access to LLM orchestrator (flowise)
 
 ..  image:: ./_static/class3-15.png
 
-Import arcadia RAG chatflow into flowise. Select settings icons and **Load Chatflow**
+Import arcadia RAG chatflow into flowise. Select **Add New**, settings icons and **Load Chatflow**
 
 ..  image:: ./_static/class3-16.png
 
@@ -302,7 +339,7 @@ Save the chatflow with a name as shown.
 
 ..  image:: ./_static/class3-18.png
 
-To successfully build the full langchain pipeline / chatflow, you need to upload organization context information into the RAG pipeline. Arcadia context information file located in the **Documents** directory. Under "Text File" node, Click "Upload File"
+To successfully build the full langchain pipeline / chatflow, you need to upload organization context information into the RAG pipeline. Arcadia context information file located in the **Documents** directory. Under **Text File** node, Click **Upload File**
 
 ..  image:: ./_static/class3-19.png
 
@@ -314,8 +351,12 @@ Save the chatflow with a name as shown.
 .. Note:: 
    We will return and continue to build RAG pipeline after we deploy vector database.  
 
-7 - Deploy Vector Database
---------------------------
+7 - Deploy Vector Database (Qdrant)
+-----------------------------------
+
+**Qdrant** is a vector similarity search engine and vector database. It provides a production-ready service with a convenient API to store, search, and manage vectors points.
+
+|
 
 .. code-block:: bash
 
@@ -347,8 +388,8 @@ Save the chatflow with a name as shown.
 .. Note:: 
    Ensure all pods are in **Running** and **READY** state where all pods count ready before proceed.
 
+Create an Nginx ingress resource to **expose Qdrant VectorDB service** externally from the Kubernetes cluster.
 
-Create nginx ingress resource for qdrant vectordb to expose vectordb service to outside of K8S.
 
 .. code-block:: bash
 
@@ -377,8 +418,8 @@ Confirm that you can login to Qdrant vector database
 ..  image:: ./_static/class3-23.png
 
 
-8 - Build RAG pipeline with Langchain
--------------------------------------
+8 - Build RAG pipeline with FlowsieAI/Langchain
+-----------------------------------------------
 
 Load the imported "arcadia-rag" chatflow.
 
@@ -460,16 +501,16 @@ Vectorize Proprietary Data
 
 RAG incorporate proprietary data to complement models and deliver more contextually aware AI outputs. However, in NLP (Neural Language Processing), AI don't understand human language. Those texts or knowledge need to be converted into an understandable language by NLP where the process called embedding required to convert text into series of vector array.
 
-nomic-embed-text is an embedding model that able to convert text into a vector array. In order for nomic-embed-text to work, the Qdrant dimention have to be updated to 768.
+**nomic-embed-text** is an embedding model that able to convert text into a vector array. In order for nomic-embed-text to work, the Qdrant dimension have to be updated to **768**.
 
-From Windows Jumphost, update the Qdrant Chain dimention to 768.
+From Windows Jumphost, update the Qdrant Chain dimension to 768.
 
-Click on "Additional Parameter"
+Click on **Additional Parameter**
 
 ..  image:: ./_static/class3-26.png
 
 
-Ensure "Vector Dimension" is 768 and "Similarity" is "Cosine" 
+Ensure **Vector Dimension** is 768 and **Similarity** is **Cosine** 
 
 ..  image:: ./_static/class3-27.png
 
@@ -477,14 +518,14 @@ Ensure "Vector Dimension" is 768 and "Similarity" is "Cosine"
 .. NOTE:: 
    Click anywhere outside to exit from the pop-up
 
-Click "Upsert Vector Database"
+Click **Upsert Vector Database**
 
 ..  image:: ./_static/class3-28.png
 
 ..  image:: ./_static/class3-29.png
 
 
-Successfully upserted vector store.
+Successfully upsert vector store. Ensure you save the chatflow.
 
 ..  image:: ./_static/class3-30.png
 
@@ -494,8 +535,8 @@ Login to Qdrant Dashboard to confirm vectordb created.
 ..  image:: ./_static/class3-31.png
 
 
-Test your first Gen AI RAG Chatbot
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Validate your first GenAI RAG Chatbot
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Click the Chat Icon
 
@@ -518,9 +559,6 @@ Sample RAG Chatbot conversation
 
 Suggested sample question ask to the RAG chatbot
 
-.. code-block:: bash
-
-   whos is chairman of the board
 
 .. code-block:: bash
 
@@ -534,14 +572,19 @@ Suggested sample question ask to the RAG chatbot
 
    tell me more about david strong
 
+..  image:: ./_static/class3-33-1.png
+
 Source of inforamtion "proprietary data" obtained from the text file store on the Windows desktop under document folder.
 
 ..  image:: ./_static/class3-34.png
 
 .. attention:: 
-   Generic Small Language Model may not be as efficient compare to a LLM and may constantly encounter hallucination. You may modify the chunking size and chuking overlap to reduce hallucination. For the purpose of a lab, we are not expecting the model to provides an accurate and intelligent answer.
+   Generic Small Language Model (SLM) may not be as efficient compare to a Large Language Model (LLM) and may constantly encounter hallucination. You may modify the chunking size and chuking overlap to reduce hallucination. For the purpose of a lab, we are not expecting the model to provides an accurate and intelligent answer.
 
-You have successfully build a Generative RAG Chatbot.
+**You have successfully build a GenAI RAG Chatbot**
+
+|
+|
 
 ..  image:: ./_static/mission3-1.png
 

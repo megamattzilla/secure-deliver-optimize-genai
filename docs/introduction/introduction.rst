@@ -7,7 +7,7 @@ As a GenAI Practitioner, your mission is to secure, deliver and optimize a moder
 
 
 .. Note:: 
-   Model development/creation such as training and/or model fine tuning is not within the scope of this mission/class. However, continious testing of model will be discussed and demonstrated.
+   Model development/creation such as training and/or model fine tuning is not within the scope of this mission/class. However, AI Governance with LLM Red Teaming and continious testing of model will be discussed and demonstrated.
 
 Learning Path
 -------------

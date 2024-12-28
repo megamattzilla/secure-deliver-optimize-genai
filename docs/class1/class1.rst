@@ -99,11 +99,12 @@ Low temperature (close to 0) makes the output more deterministic and focused. Mo
 High temperature (closer to 1 or above) increases randomness and creativity. Model is more likely to choose less probable words. Outputs become more diverse and unpredictable. Can generate more unique and imaginative responses.
 
 
-
 .. NOTE::
        No explicit action required for this class. Ensure you read and  understand.
        A strong understanding of those fundamental are essential. 
 
+|
+|
 
 ..  image:: ./_static/mission1-1.png
 
