@@ -63,15 +63,82 @@ For details, please refer to official documentation. Here a brief description.
 
 **Routes** - The routes section defines the endpoints that the AI Gateway listens to and the policy that applies to each of them.
 
+.. NOTE::
+   Example shown AIGW listen for **/simply-chat** endpoint and will use policy **ai-deliver-optimize-pol** that uses OpenAI schema.
+
+   .. code-block:: yaml
+
+      routes:
+        - path: /simply-chat
+          policy: ai-deliver-optimize-pol
+          schema: openai
+   
+      
 **Policies** - The policies section allows you to use different profiles based on different selectors.
+
+.. NOTE::
+   Example uses **rag-ai-chatbot-prompt-pol** policy which mapped to **rag-ai-chatbot-prompt** profiles.
+
+   .. code-block:: yaml
+
+      policies:
+        - name: rag-ai-chatbot-prompt-pol
+          profiles:
+          - name: rag-ai-chatbot-prompt
+         
 
 **Profiles** - The profiles section defines the different sets of processors and services that apply to the input and output of the AI model based on a set of rules.
 
+.. NOTE::
+   Example uses **rag-ai-chatbot-prompt** profiles which defined the **prompt-injection** processor at the **inputStages** which uses **ollama/llama3.2** service.
+
+   .. code-block:: yaml
+
+      profiles:
+        - name: rag-ai-chatbot-prompt
+          inputStages:
+          - name: prompt-injection
+            steps:
+              - name: prompt-injection
+          services:
+          - name: ollama/llama3.2
+   
+
 **Processors** - The processors section defines the processing services that can be applied to the input or output of the AI model.
+
+.. NOTE::
+   Processor definition for **prompt-injection**
+
+   .. code-block:: yaml
+
+      processors:
+        - name: prompt-injection
+          type: external
+          config:
+            endpoint: "http://ai-gateway-processors-f5.trust.apps.ai"
+            namespace: "f5"
+            version: 1
+          params:
+            reject: true
+            threshold: 0.8
 
 **Services** - The services section defines the upstream LLM services that the AI Gateway can send traffic to.
 
+.. NOTE::
+   Example shown service for ollama/llama3.2 (upstream LLM). This is the service that AIGW will send to. Option for executor are ollama, openai, anthropic or http. Endpoint URL is where the upstream LLM API. 
 
+   .. code-block:: yaml
+
+      - name: ollama/llama3.2
+        type: llama3.2
+        executor: openai
+        config:
+           endpoint: 'http://ollama-service.open-webui:11434/v1/chat/completions'
+           secrets:
+            - source: EnvVar
+              targets:
+                  apiKey: OPENAI_PUBLIC_API_KEY
+    
 2 - Deploy F5 AI Gateway
 ------------------------
 
