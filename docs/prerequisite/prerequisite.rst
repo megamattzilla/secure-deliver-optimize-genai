@@ -71,7 +71,7 @@ Access to Harbor Registry server with Chrome browser
 +----------------+---------------+
 | **Username**   | admin         |
 +----------------+---------------+
-| **Password**   | F5Password    |
+| **Password**   | F5Passw0rd    |
 +----------------+---------------+
 
 

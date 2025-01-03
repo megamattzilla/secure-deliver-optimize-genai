@@ -5,7 +5,7 @@ Class 1: The fundamental of Generative Artificial Intelligent (AI)
 
 AI Primer
 ---------
-As GenAI Practiotioner, you need to minimally understand what it means with the following term and able to articulate the concept introduced. The following not an exhasive list. The purpose if to get you started. For details, please refer to various contents. Content below were extracted from collection of resources from Internet.
+As GenAI Practitioner, you need to minimally understand what it means with the following term and able to articulate the concept introduced. The following not an exhasive list. The purpose if to get you started. For details, please refer to various contents. Content below were extracted from collection of resources from Internet.
 
 
 What is AI and how different with GenAI?

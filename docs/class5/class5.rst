@@ -395,7 +395,7 @@ Here a series of task that you may need to perform.
 ..  image:: ./_static/class5-14.png
 
 .. Note:: 
-   You may leave the ChatOpenAI node without deleting it.  
+   You may leave the ChatOllama node without deleting it.  
 
 Validate GenAI chatbot works via AIGW
 
@@ -900,6 +900,7 @@ We going to setup a RAG Chatbot with Open-Webui and use Open-Webui to interact w
 We update to point to AI GW
 
 We need to turn off stream as AIGW don't support streaming.
+
 ..  image:: ./_static/class5-30.png
 
 ..  image:: ./_static/class5-31.png
