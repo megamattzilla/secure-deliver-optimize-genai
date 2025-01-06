@@ -34,7 +34,7 @@ After login/putty to linux Jumphost (from Windows10 Jumphost), change directory 
 ..  image:: ./_static/class2-1.png
 
 
-Execute the following command to install NGINX Ingress controlle with the provided helm chart.
+Execute the following command to install NGINX Ingress controller with the provided helm chart.
 
 .. code-block:: bash
 
