@@ -1,3 +1,9 @@
 .DS_Store
 .htpasswd
 docs/_build
+build-push.sh
+default.conf
+nginx.conf
+inter-ca.crt
+root-ca.crt
+Dockerfile
