@@ -11,7 +11,7 @@ In previous class, you successfully build a GenAI RAG chatbot using langchain fr
 
 To embed the chatbot into the arcadia trading platform, we will insert code snippet from flowise AI into our code.
 
-From Flowise AI, copy the embeded code snippet into a text editor or nodepad.
+From Flowise AI, copy the embeded code snippet into a text editor or notepad.
 
 
 ..  image:: ./_static/class4-1.png
