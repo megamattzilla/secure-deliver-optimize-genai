@@ -6,7 +6,9 @@ Class 2: Deploy and Secure a modern application
 1 - Deploy Nginx Ingress Controller with App Protect to protect Web Apps Server
 --------------------------------------------------------------------------------
 
-After login to linux Jumphost, change directory to **webapps**. Jumphost server was installed with utilities called 'direnv' - https://direnv.net/. Its a tools that will load the environment file (kubeconfig) when you switch to that directory. Its an efficient tools to switch K8S context from one cluster to the other just by changing directory.
+..  image:: ./_static/class2-0.png
+
+After login/putty to linux Jumphost (from Windows10 Jumphost), change directory to **webapps**. Jumphost server was installed with utilities called 'direnv' - https://direnv.net/. Its a tools that will load the environment file (kubeconfig) when you switch to that directory. Its an efficient tools to switch K8S context from one cluster to the other just by changing directory.
 
 .. NOTE::
        Refer to **Prerequsite** section to find the password for the Windows10 and Linux Jumphost.
@@ -95,6 +97,8 @@ values-plus-nap.yaml ::
 
 2 - Deploy Arcadia Financial Modern Apps
 ----------------------------------------
+
+..  image:: ./_static/class2-3-0.png
 
 Deploy Arcadia Financial application on Kubernetes. Arcadia Trading consist of multiple microservices.
 

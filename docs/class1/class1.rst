@@ -5,7 +5,7 @@ Class 1: The fundamental of Generative Artificial Intelligent (AI)
 
 AI Primer
 ---------
-As GenAI Practitioner, you need to minimally understand what it means with the following term and able to articulate the concept introduced. The following not an exhasive list. The purpose if to get you started. For details, please refer to various contents. Content below were extracted from collection of resources from Internet.
+As GenAI Practitioner, you need to minimally understand what it means with the following term and able to articulate the concept introduced. The following not an exhaustive list. The purpose is to get you started. For details, please refer to various contents. Content below were extracted from collection of resources from Internet.
 
 
 What is AI and how different with GenAI?
@@ -27,12 +27,13 @@ In summary, LLMs are a specialized application of machine learning, focusing on 
 What is SLM?
 ~~~~~~~~~~~~
 SLM (Small Language Model) is a type of artificial intelligence model designed for natural language processing that has fewer parameters (between million to few billion) and computational requirements compared to large language models.
-Parameter Scale Examples
 
-Small language model: 100 million to 1 billion parameters
-Medium model: 1-10 billion parameters
-Large models like GPT-3: 175 billion parameters
-Very large models: 500 billion to 1 trillion parameters
+**Parameter Scale Examples**
+
+- Small language model: 100 million to 1 billion parameters
+- Medium model: 1-10 billion parameters
+- Large models like GPT-3: 175 billion parameters
+- Very large models: 500 billion to 1 trillion parameters
 
 
 What is ML?
@@ -43,13 +44,15 @@ What hallucination means in AI?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Hallucination in AI is when an AI model generates information that is false, inaccurate, or completely made up, even though it might sound convincing. It's like the AI "imagining" things that aren't real or aren't supported by its training data.
 
-For instance, if you ask an AI about a person named "Olivia Smith" it might confidently generate a detailed biography about a specific Oliver Smith, complete with birth date and achievements, even though it's not referring to any real person – it's just combining patterns it learned during training
+For instance, if you ask an AI about a person named "Olivia Smith" it might confidently generate a detailed biography about a specific Olivia Smith, complete with birth date and achievements, even though it's not referring to any real person – it's just combining patterns it learned during training
 
 
 What "token" means in context in AI?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-A token is the basic unit of text that an AI model processes and understands. A token can be a word, part of a word, or even a punctuation mark. Tokenization is the process of breaking down text into these individual tokens
+A token is the basic unit of text that an AI model processes and understands. A token can be a word, part of a word, or even a punctuation mark. Tokenization is the process of breaking down text into these individual tokens.
+
 Typically, 1 token is approximately:
+
 - 4 characters of English text
 - About 3/4 of a word
 - Varies slightly between different AI models
@@ -94,7 +97,7 @@ What is "temperature" in AI?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Temperature controlled “the creativity of the response. It is a hyperparameter that controls the randomness or creativity of the model's output during text generation. 
 
-Low temperature (close to 0) makes the output more deterministic and focused. Model selects the most probable words. Responses become more percise and consistent. Lesss creative and more conservative outputs.
+Low temperature (close to 0) makes the output more deterministic and focused. Model selects the most probable words. Responses become more percise and consistent. Less creative and more conservative outputs.
 
 High temperature (closer to 1 or above) increases randomness and creativity. Model is more likely to choose less probable words. Outputs become more diverse and unpredictable. Can generate more unique and imaginative responses.
 

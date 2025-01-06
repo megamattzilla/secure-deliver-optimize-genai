@@ -142,6 +142,8 @@ For details, please refer to official documentation. Here a brief description.
 2 - Deploy F5 AI Gateway
 ------------------------
 
+..  image:: ./_static/class5-2-0.png
+
 .. code-block:: bash
 
    cd ~/ai-gateway/aigw-v0.1/charts/aigw
@@ -182,6 +184,8 @@ AIGW Core is running and listening for traffic.
 
 3 - Deploy AI GW User Interface.
 --------------------------------
+
+..  image:: ./_static/class5-4-0.png
 
 .. attention:: 
    This AI GW UI is an interim UI for AI GW. **AIGW UI will change in future.**
@@ -261,6 +265,8 @@ Confirm you can access the AIGW UI from Chrome browser
 4 - Deploy F5 AI Processor
 --------------------------
 
+..  image:: ./_static/class5-7-0.png
+
 Deploy NGINX ingress controller for AI Processor K8S.
 
 .. code-block:: bash
@@ -288,6 +294,8 @@ Deploy NGINX ingress controller for AI Processor K8S.
 
 Install AIGW processor helm chart
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+..  image:: ./_static/class5-8-0.png
 
 .. code-block:: bash
 
@@ -406,6 +414,8 @@ Interact with the GenAI RAG chatbot with the example question. You may need to a
 
 7 - Deploy Simply-Chat Apps
 ---------------------------
+
+..  image:: ./_static/class5-18-1-0.png
 
 Simply-Chat is another sample GenAI Chatbot to interact with LLM.
 

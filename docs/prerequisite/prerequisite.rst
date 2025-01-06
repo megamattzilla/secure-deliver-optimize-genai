@@ -1,5 +1,5 @@
-Prerequsite
-===========
+Prerequisite
+============
 
 Readiness
 ---------

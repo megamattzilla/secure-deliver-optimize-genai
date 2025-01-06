@@ -43,6 +43,8 @@ With the growing popularity of Generative AI, your organization has decided to u
 2 - Deploy Nginx Ingress Controller for AIGW K8S
 ------------------------------------------------
 
+..  image:: ./_static/class3-1-1.png
+
 .. code-block:: bash
 
    cd ~/ai-gateway/nginx-ingress
@@ -66,6 +68,8 @@ With the growing popularity of Generative AI, your organization has decided to u
 
 3 - Deploy Open-WebUI with Ollama Service
 -----------------------------------------
+
+..  image:: ./_static/class3-4-0.png
 
 **Open-Webui** is a self-hosted WebUI that allow user to interact with AI models. It allow user to download respective language model that use by Ollama.
 
@@ -199,7 +203,7 @@ Test interacting with LLM model. Feel free to test with different language model
 .. attention:: 
    Please do notes that GenAI is hallucinating and providing wrong information - about F5 Inc headquarters. Please ignore as smaller model (smaller parameter, less intelligent) tend to hallucinate more compare to a larger model. Large models with more parameters are more capable and intelligent than smaller models, but require expensive machines with multiple GPUs to run. 
    
-   Its also depends on dataset use for the training - "Garbage In, Garbage Out".
+   It also depends on dataset use for the training - "Garbage In, Garbage Out".
 
 
 5 - Deploy LLM model service (Ollama)
@@ -238,6 +242,9 @@ ollama-ingress-http.yaml ::
 
 6 - Deploy LLM orchestrator service (Flowise AI)
 ------------------------------------------------
+
+..  image:: ./_static/class3-13-0.png
+
 Deploy LLM Orchstrator to facilitate AI component communication. Flowise AI - an open source low-code tool for developer to build customized LLM orchstration flow and AI agent is used. (https://flowiseai.com/). Flowise complements LangChain by offering a visual interface.
 
 .. code-block:: bash
@@ -271,7 +278,7 @@ Deploy LLM Orchstrator to facilitate AI component communication. Flowise AI - an
 
 ..  image:: ./_static/class3-13.png
 
-Flowise is installed with the following custom values. You can login with the password shown in the value file.
+Flowise is installed with the following custom values. Plese take notes of the password as you may need it for the next section.
 
 values.yaml ::
 
@@ -327,7 +334,7 @@ Confirm that you can login and access to LLM orchestrator (flowise)
 
 ..  image:: ./_static/class3-15.png
 
-Import arcadia RAG chatflow into flowise. Select **Add New**, settings icons and **Load Chatflow**
+Import arcadia RAG chatflow into flowise. Select **Add New**, click **Settings icons** and **Load Chatflow**
 
 ..  image:: ./_static/class3-16.png
 
@@ -335,7 +342,7 @@ A copy of the chatflow located on the jumphost **Documents** directory. Select t
 
 ..  image:: ./_static/class3-17.png
 
-Save the chatflow with a name as shown.
+Save the chatflow (arcadia-rag)
 
 ..  image:: ./_static/class3-18.png
 
@@ -353,6 +360,8 @@ Save the chatflow with a name as shown.
 
 7 - Deploy Vector Database (Qdrant)
 -----------------------------------
+
+..  image:: ./_static/class3-20-0.png
 
 **Qdrant** is a vector similarity search engine and vector database. It provides a production-ready service with a convenient API to store, search, and manage vectors points.
 
@@ -426,7 +435,7 @@ Load the imported "arcadia-rag" chatflow.
 ..  image:: ./_static/class3-24.png
 
 
-Here is the full RAG pipeline implmented in a low-code platform.
+Here is the full RAG pipeline implemented in a low-code platform.
 
 ..  image:: ./_static/class3-25.png
 
@@ -437,7 +446,7 @@ Here are some of the node/chain used.
 +=============================================+=======================================================================+
 |  **Recursive Character Text Splitter**      |  Split documents recursively by different characters -                |
 |                                             |  starting with "\n\n", then "\n", then " ".                           |
-|     Chunck Size: 250                        |                                                                       |
+|     Chunk Size: 250                         |                                                                       |
 |                                             |                                                                       |
 |     Chunk Overlap : 20                      |                                                                       |
 |                                             |                                                                       |
