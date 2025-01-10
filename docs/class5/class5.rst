@@ -12,7 +12,7 @@ AI services and applications are a subset of modern applications. Securing AI ap
 
 1 - Fundamental about F5 AI Gateway
 -----------------------------------
-F5 AI Gateway routes generative AI traffic to an appropriate Large Language Model (LLM) or Small Language Model (SML) backend and protects the traffic against common threats, which includes:
+F5 AI Gateway routes generative AI traffic to an appropriate Large Language Model (LLM) or Small Language Model (SLM) backend and protects the traffic against common threats, which includes:
 
 - Inspecting and filtering of client requests and LLM responses
 - Preventing of malicious inputs from reaching an LLM backend
@@ -46,8 +46,12 @@ Processors are components that a gateway interacts with in order to change the f
 There are differents type of processors
 
 **System Processor**
-The most common and generic processor. This type of processor handles most of all processing steps that are not concerned directly with scrubbing, filtering, redacting, or scanning prompts and their responses. Examples of system processors: - Logging processor - Backend router processor - Token accounting processor - Caching processor.
+The most common and generic processor. This type of processor handles most of all processing steps that are not concerned directly with scrubbing, filtering, redacting, or scanning prompts and their responses. Examples of system processors: 
 
+- Logging processor 
+- Backend router processor 
+- Token accounting processor 
+- Caching processor
 
 **Detector Processor**
 A detector processor is a processor that specializes in detecting some property of the text provided in a prompt or response. For example, a detector may seek to discover if a given prompt contains protected intellectual property or PII (personally identifiable information)
@@ -359,7 +363,7 @@ Monitor AIGW Core logs.
 
     kubectl -n ai-gateway logs -f -l app.kubernetes.io/name=aigw
 
-Fron Postman, select **ai-deliver-optimize-default-rag-pii-pol** and click **Send** to create AIGW configuration.
+From Postman, expand the uploaded collection and select **ai-deliver-optimize-default-rag-pii-pol** and click **Send** to create AIGW configuration.
 
 ..  image:: ./_static/class5-11-1.png
 
@@ -460,7 +464,7 @@ LLM Traffic Management
 
 - If user input code snippet, send to an internal currate private model (codellama) instead of send to public or SaaS-Managed model. E.g. prevent accidental sensitive code leakage.
 - If user input English language, route to private llama3 model.
-- If user input Mandarine, route to private qwen2.5 model from Alibaba Cloud.
+- If user input Mandarin, route to private qwen2.5 model from Alibaba Cloud.
 - If user input Japanese, route to private rakuten-7b-chat model fromm Rakuten.
 - If non of the above match, route to private Phi3 model from Microsoft.
 
