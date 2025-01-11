@@ -954,19 +954,39 @@ Enter in an example prompt asking for information about
 
 ..  image:: ./_static/class5-28.png
 
+Enter in prompt asking for details about Tony Smart and note the PII data being returned. 
+
+.. code-block:: bash
+
+   give me details about tony smart
+
+
 ..  image:: ./_static/class5-29.png
 
 Update Open-WebUI configuration to route via AIGW
 
-We need to turn off stream as AIGW don't support streaming.
+We need to turn off stream as AIGW don't support streaming. 
+
+Click your user icon in the bottom left of the screen and click **Settings**. In the General section, show **Advanced Parameters** and change the **Stream Chat Response** from default to **Off**, click **Save**
 
 ..  image:: ./_static/class5-30.png
 
+Click your user icon in the bottom left of the screen and click Admin Panel, Settings, Connections, and under “OpenAI API”, 
+
 ..  image:: ./_static/class5-31.png
+
+change the endpoint to be the AI Gateway with a dummy api key 
+
+.. code-block:: bash
+
+    https://aigw.ai.local/v1
+
+
+Disable the Ollama API and click Save.
 
 ..  image:: ./_static/class5-32.png
 
-Apply PII-redactor policy for open-webui
+In Postman, apply the PII-redactor policy for open-webui using the *ai-deliver-optimize-default-rag-open-webui* API call in the collection
 
 ..  image:: ./_static/class5-33.png
 
