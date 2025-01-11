@@ -19,7 +19,7 @@ F5 AI Gateway routes generative AI traffic to an appropriate Large Language Mode
 - Ensuring that LLM responses are safe to send to clients
 - Protecting against leaking sensitive information
 
-There are two key compoenents that form an AI Gateway.
+There are two key components that form an AI Gateway.
 
 - AI Core
 - AI Processor
@@ -348,7 +348,7 @@ Import AIGW policy configuration into Postman.
 ..  image:: ./_static/class5-10.png
 
 
-Import into Postman collection. A copy of the postman collection located in **Documents** folder
+Import collection file into Postman. A copy of the postman collection located in **Documents** folder.
 
 
 ..  image:: ./_static/class5-11.png
@@ -377,7 +377,7 @@ Confirm AIGW policy successfully applied via AIGW UI.
 
 Currently, GenAI RAG chatbot pointing to the Ollama API. Update GenAI RAG Chatbot to point to AIGW API endpoint.
 
-We are going to use OpenAI compatible API. We are going to use **ChatOpenAI Custom** node.
+We are going to use OpenAI compatible API. Click the **Add Node** button in the Flowise UI and search using keyword “custom”. We are going to use **ChatOpenAI Custom** node.
 
 Drag the **ChatOpenAI Custom** node onto the FlowiseAI canvas.
 
@@ -402,7 +402,7 @@ Here a series of task that you may need to perform.
 
 ..  image:: ./_static/class5-13-4.png
 
-4. Break the link between **ChatOllama with Conversational Retrival QA Chain** and connect **Conversational Retrival QA Chain** to **ChatOpenAI Custom** node.
+4. Break the link between **ChatOllama with Conversational Retrieval QA Chain** and connect **Conversational Retrieval QA Chain** to **ChatOpenAI Custom** node. Click on save icon to save chatflow.
 
 ..  image:: ./_static/class5-14.png
 
@@ -462,13 +462,15 @@ Confirm you able to access to simply-chat apps
 LLM Traffic Management
 ~~~~~~~~~~~~~~~~~~~~~~
 
-- If user input code snippet, send to an internal currate private model (codellama) instead of send to public or SaaS-Managed model. E.g. prevent accidental sensitive code leakage.
+This section will show how to route to respective LLM model based on language and code detection. 
+
+- If user input code snippet, send to an internally curated private model (codellama) instead of send to public or SaaS-Managed model. E.g. prevent accidental sensitive code leakage.
 - If user input English language, route to private llama3 model.
 - If user input Mandarin, route to private qwen2.5 model from Alibaba Cloud.
 - If user input Japanese, route to private rakuten-7b-chat model fromm Rakuten.
-- If non of the above match, route to private Phi3 model from Microsoft.
+- If none of the above match, route to private Phi3 model from Microsoft.
 
-Route to respective LLM model based on language and code detection. The following policy are configured on AIGW.
+The following policy are configured on AIGW.
 
 AI Gateway Policy ::
 
@@ -878,14 +880,20 @@ Example logs
 RAG ChatBot - Sensitive Information Disclosure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We going to setup a RAG Chatbot with Open-Webui and use Open-Webui to interact with RAG via AIGW.
+We going to setup a RAG Chatbot with Open-Webui and use Open-Webui to interact with RAG via AIGW. Click on **Workspace** in the Open WebUI interface.
 
 
 ..  image:: ./_static/class5-19.png
 
+Click on **Knowledge** and add a knowledge base to make its responses more accurate and relevant.
+
 ..  image:: ./_static/class5-20.png
 
+Create a knowledge base like in below screenshot.
+
 ..  image:: ./_static/class5-21.png
+
+Upload corpus data.
 
 ..  image:: ./_static/class5-21-1.png
 
@@ -893,15 +901,21 @@ We going to setup a RAG Chatbot with Open-Webui and use Open-Webui to interact w
 
 ..  image:: ./_static/class5-21-3.png
 
+Click on **Models** and add a new custom model.
+
 ..  image:: ./_static/class5-22.png
 
-
+Configure as shown below then click **Save & Create**.
 
 ..  image:: ./_static/class5-23.png
+
+Click on **New Chat**, and select the previously created custom model.
 
 ..  image:: ./_static/class5-24.png
 
 ..  image:: ./_static/class5-25.png
+
+Interact with the chatbot like below.
 
 ..  image:: ./_static/class5-26.png
 
@@ -909,23 +923,34 @@ We going to setup a RAG Chatbot with Open-Webui and use Open-Webui to interact w
 
 ..  image:: ./_static/class5-28.png
 
+Probe further for details about Tony Smart and note the PII data being returned.
+
 ..  image:: ./_static/class5-29.png
 
 We update to point to AI GW
 
-We need to turn off stream as AIGW don't support streaming.
+We need to turn off stream as AIGW doesn't support streaming. Click your user icon in the bottom left of the screen and click **Settings**. In the General section, show Advanced Parameters and change the **Stream Chat Response** from **default** to **Off**, click **Save**.
 
 ..  image:: ./_static/class5-30.png
 
+Click your user icon in the bottom left of the screen and click **Admin Panel**, **Settings**, **Connections**. 
+
+.. code-block:: bash
+   
+   https://aigw.ai.local/v1
+
+
 ..  image:: ./_static/class5-31.png
+
+Under **OpenAI API**, change the endpoint to be the AI Gateway with a dummy api key. Disable the Ollama API and click **Save**.
 
 ..  image:: ./_static/class5-32.png
 
-Apply PII-redactor policy for open-webui
+In Postman, apply the PII-redactor policy for open-webui using the ai-deliver-optimize-default-rag-open-webui API call in the collection.
 
 ..  image:: ./_static/class5-33.png
 
-Interact with the GenAI Chatbot via AIGW
+Interact with the GenAI Chatbot via AIGW.
 
 .. code-block:: bash
 
@@ -934,7 +959,7 @@ Interact with the GenAI Chatbot via AIGW
 ..  image:: ./_static/class5-34.png
 
 
-Correspoinding logs from AIGW
+Corresponding logs from AIGW
 
 .. code-block:: bash
 
@@ -970,7 +995,7 @@ Correspoinding logs from AIGW
 
 ..  image:: ./_static/class5-35.png
 
-Correspoinding logs from AIGW
+Corresponding logs from AIGW
 
 .. code-block:: bash
 
