@@ -19,7 +19,7 @@ F5 AI Gateway routes generative AI traffic to an appropriate Large Language Mode
 - Ensuring that LLM responses are safe to send to clients
 - Protecting against leaking sensitive information
 
-There are two key compoenents that form an AI Gateway.
+There are two key components that form an AI Gateway.
 
 - AI Core
 - AI Processor
@@ -349,7 +349,7 @@ Import AIGW policy configuration into Postman.
 ..  image:: ./_static/class5-10.png
 
 
-Import the file *AI Gateway - v0.1.postman_collection.json* into Postman collection. A copy of the postman collection located in **Documents** folder
+Import into Postman collection. A copy of the postman collection located in **Documents** folder
 
 
 ..  image:: ./_static/class5-11.png
@@ -378,7 +378,7 @@ Confirm AIGW policy successfully applied via AIGW UI.
 
 Currently, GenAI RAG chatbot pointing to the Ollama API. Update GenAI RAG Chatbot to point to AIGW API endpoint.
 
-Click the “+” button in the Flowise UI and search using keyword “custom”. We are going to use **ChatOpenAI Custom** node.
+We are going to use OpenAI compatible API. We are going to use **ChatOpenAI Custom** node.
 
 Drag the **ChatOpenAI Custom** node onto the FlowiseAI canvas.
 
@@ -403,7 +403,7 @@ Here a series of task that you may need to perform.
 
 ..  image:: ./_static/class5-13-4.png
 
-4. Click the “x”  on the link to break the link between **ChatOllama with Conversational Retrival QA Chain** and connect **Conversational Retrieval QA Chain** to **ChatOpenAI Custom** node. Click on save icon to save chatflow.
+4. Break the link between **ChatOllama with Conversational Retrival QA Chain** and connect **Conversational Retrival QA Chain** to **ChatOpenAI Custom** node.
 
 ..  image:: ./_static/class5-14.png
 
@@ -475,11 +475,13 @@ LLM Traffic Management
 
 This section will show how AI Gateway can route to respective conditions.
 
-- If user input code snippet, send to an internal currate private model (codellama) instead of send to public or SaaS-Managed model. E.g. prevent accidental sensitive code leakage.
+This section will show how to route to respective LLM model based on language and code detection. 
+
+- If user input code snippet, send to an internally curated private model (codellama) instead of send to public or SaaS-Managed model. E.g. prevent accidental sensitive code leakage.
 - If user input English language, route to private llama3 model.
 - If user input Mandarin Chinese, route to private qwen2.5 model from Alibaba Cloud.
 - If user input Japanese, route to private rakuten-7b-chat model fromm Rakuten.
-- If non of the above match, route to private Phi3 model from Microsoft.
+- If none of the above match, route to private Phi3 model from Microsoft.
 
 The following policy are configured on AIGW.
 
@@ -891,26 +893,15 @@ Example logs
 RAG ChatBot - Sensitive Information Disclosure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We going to setup a RAG Chatbot with Open-Webui and use Open-Webui to interact with RAG via AIGW.
+We going to setup a RAG Chatbot with Open-Webui and use Open-Webui to interact with RAG via AIGW. Click on **Workspace** in the Open WebUI interface.
 
 Click on Workspace in the Open WebUI interface
 
 ..  image:: ./_static/class5-19.png
 
-Click on Knowledge and the “+” to setup a knowledge base to make its responses more accurate and relevant
-
 ..  image:: ./_static/class5-20.png
 
-Type a name for the knowledge base "Arcadia Corp AI Service" and click **Create Knowledge**
-
-.. code-block:: bash
-
-   Arcadia Corp AI Services
-
-
 ..  image:: ./_static/class5-21.png
-
-Click “+” and “Upload files” to add content
 
 ..  image:: ./_static/class5-21-1.png
 
@@ -921,28 +912,15 @@ Select the file **arcadia-team-with-sensitve-data-v2.txt**
 
 ..  image:: ./_static/class5-21-3.png
 
-Click on Models and “+” to add a new custom model. Type a name for the model **"Arcadia Corp AI Services"**, select the base model as **qwen2.5:1.5b**, make visibility Public, and select the previously created knowledge base. Click **“Save & Create”**
-
 ..  image:: ./_static/class5-22.png
 
-
+Configure as shown below then click **Save & Create**.
 
 ..  image:: ./_static/class5-23.png
-
-
-Click on New Chat, and select the previously created custom model
 
 ..  image:: ./_static/class5-24.png
 
 ..  image:: ./_static/class5-25.png
-
-
-Enter in an example prompt asking for information about Arcadia 
-
-.. code-block:: bash
-
-   who is chairman of the board
-
 
 ..  image:: ./_static/class5-26.png
 
@@ -950,44 +928,23 @@ Enter in an example prompt asking for information about Arcadia
 
 ..  image:: ./_static/class5-28.png
 
-
-Enter in prompt asking for details about Tony Smart and note the PII data being returned. 
-
-.. code-block:: bash
-
-   give me details about tony smart
-
-
 ..  image:: ./_static/class5-29.png
 
 Update Open-WebUI configuration to route via AIGW
 
-We need to turn off stream as AIGW don't support streaming. 
-
-Click your user icon in the bottom left of the screen and click Settings. In the General section, show Advanced Parameters and change the “Stream Chat Response” from default to Off, click Save.
+We need to turn off stream as AIGW don't support streaming.
 
 ..  image:: ./_static/class5-30.png
 
-
-Click your user icon in the bottom left of the screen and click Admin Panel, Settings, Connections, and under “OpenAI API”,
-
 ..  image:: ./_static/class5-31.png
-
-change the endpoint to be the AI Gateway with a dummy api key
-
-.. code-block:: bash
-
-   https://aigw.ai.local/v1
-
-Disable the Ollama API and click Save.
 
 ..  image:: ./_static/class5-32.png
 
- In Postman, apply the PII-redactor policy for open-webui using the *ai-deliver-optimize-default-rag-open-webui* API call in the collection
+Apply PII-redactor policy for open-webui
 
 ..  image:: ./_static/class5-33.png
 
-Interact with the GenAI Chatbot via AIGW
+Interact with the GenAI Chatbot via AIGW.
 
 .. code-block:: bash
 
@@ -996,7 +953,7 @@ Interact with the GenAI Chatbot via AIGW
 ..  image:: ./_static/class5-34.png
 
 
-Correspoinding logs from AIGW
+Corresponding logs from AIGW
 
 .. code-block:: bash
 
@@ -1032,7 +989,7 @@ Correspoinding logs from AIGW
 
 ..  image:: ./_static/class5-35.png
 
-Correspoinding logs from AIGW
+Corresponding logs from AIGW
 
 .. code-block:: bash
 
