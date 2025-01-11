@@ -46,6 +46,7 @@ Processors are components that a gateway interacts with in order to change the f
 There are differents type of processors
 
 **System Processor**
+
 The most common and generic processor. This type of processor handles most of all processing steps that are not concerned directly with scrubbing, filtering, redacting, or scanning prompts and their responses. Examples of system processors: 
 
 - Logging processor 
@@ -348,7 +349,7 @@ Import AIGW policy configuration into Postman.
 ..  image:: ./_static/class5-10.png
 
 
-Import into Postman collection. A copy of the postman collection located in **Documents** folder
+Import the file *AI Gateway - v0.1.postman_collection.json* into Postman collection. A copy of the postman collection located in **Documents** folder
 
 
 ..  image:: ./_static/class5-11.png
@@ -377,7 +378,7 @@ Confirm AIGW policy successfully applied via AIGW UI.
 
 Currently, GenAI RAG chatbot pointing to the Ollama API. Update GenAI RAG Chatbot to point to AIGW API endpoint.
 
-We are going to use OpenAI compatible API. We are going to use **ChatOpenAI Custom** node.
+Click the “+” button in the Flowise UI and search using keyword “custom”. We are going to use **ChatOpenAI Custom** node.
 
 Drag the **ChatOpenAI Custom** node onto the FlowiseAI canvas.
 
@@ -402,7 +403,7 @@ Here a series of task that you may need to perform.
 
 ..  image:: ./_static/class5-13-4.png
 
-4. Break the link between **ChatOllama with Conversational Retrival QA Chain** and connect **Conversational Retrival QA Chain** to **ChatOpenAI Custom** node.
+4. Click the “x”  on the link to break the link between **ChatOllama with Conversational Retrival QA Chain** and connect **Conversational Retrieval QA Chain** to **ChatOpenAI Custom** node. Click on save icon to save chatflow.
 
 ..  image:: ./_static/class5-14.png
 
@@ -411,7 +412,17 @@ Here a series of task that you may need to perform.
 
 Validate GenAI chatbot works via AIGW
 
-Interact with the GenAI RAG chatbot with the example question. You may need to ask multiple time or hallucination may happened. At the same time, you will observed AIGW logs to validate GenAI RAG chatbot traffic indeed traverses AIGW.
+Interact with the GenAI RAG chatbot with an example question like below:-
+
+.. code-block:: bash
+
+   tell me member of the board of director
+
+.. code-block:: bash
+
+   Who is chairman of the board
+
+You may need to make multiple queries, as hallucinations can occur. Meanwhile, monitor the AIGW logs to confirm that the GenAI RAG chatbot traffic is successfully passing through the AIGW
 
 ..  image:: ./_static/class5-15.png
 
@@ -462,13 +473,15 @@ Confirm you able to access to simply-chat apps
 LLM Traffic Management
 ~~~~~~~~~~~~~~~~~~~~~~
 
+This section will show how AI Gateway can route to respective conditions.
+
 - If user input code snippet, send to an internal currate private model (codellama) instead of send to public or SaaS-Managed model. E.g. prevent accidental sensitive code leakage.
 - If user input English language, route to private llama3 model.
-- If user input Mandarin, route to private qwen2.5 model from Alibaba Cloud.
+- If user input Mandarin Chinese, route to private qwen2.5 model from Alibaba Cloud.
 - If user input Japanese, route to private rakuten-7b-chat model fromm Rakuten.
 - If non of the above match, route to private Phi3 model from Microsoft.
 
-Route to respective LLM model based on language and code detection. The following policy are configured on AIGW.
+The following policy are configured on AIGW.
 
 AI Gateway Policy ::
 
@@ -880,18 +893,35 @@ RAG ChatBot - Sensitive Information Disclosure
 
 We going to setup a RAG Chatbot with Open-Webui and use Open-Webui to interact with RAG via AIGW.
 
+Click on Workspace in the Open WebUI interface
 
 ..  image:: ./_static/class5-19.png
 
+Click on Knowledge and the “+” to setup a knowledge base to make its responses more accurate and relevant
+
 ..  image:: ./_static/class5-20.png
+
+Type a name for the knowledge base "Arcadia Corp AI Service" and click **Create Knowledge**
+
+.. code-block:: bash
+
+   Arcadia Corp AI Services
+
 
 ..  image:: ./_static/class5-21.png
 
+Click “+” and “Upload files” to add content
+
 ..  image:: ./_static/class5-21-1.png
+
+Select the file **arcadia-team-with-sensitve-data-v2.txt**
 
 ..  image:: ./_static/class5-21-2.png
 
+
 ..  image:: ./_static/class5-21-3.png
+
+Click on Models and “+” to add a new custom model. Type a name for the model **"Arcadia Corp AI Services"**, select the base model as **qwen2.5:1.5b**, make visibility Public, and select the previously created knowledge base. Click **“Save & Create”**
 
 ..  image:: ./_static/class5-22.png
 
@@ -899,9 +929,20 @@ We going to setup a RAG Chatbot with Open-Webui and use Open-Webui to interact w
 
 ..  image:: ./_static/class5-23.png
 
+
+Click on New Chat, and select the previously created custom model
+
 ..  image:: ./_static/class5-24.png
 
 ..  image:: ./_static/class5-25.png
+
+
+Enter in an example prompt asking for information about Arcadia 
+
+.. code-block:: bash
+
+   who is chairman of the board
+
 
 ..  image:: ./_static/class5-26.png
 
@@ -909,19 +950,40 @@ We going to setup a RAG Chatbot with Open-Webui and use Open-Webui to interact w
 
 ..  image:: ./_static/class5-28.png
 
+
+Enter in prompt asking for details about Tony Smart and note the PII data being returned. 
+
+.. code-block:: bash
+
+   give me details about tony smart
+
+
 ..  image:: ./_static/class5-29.png
 
-We update to point to AI GW
+Update Open-WebUI configuration to route via AIGW
 
-We need to turn off stream as AIGW don't support streaming.
+We need to turn off stream as AIGW don't support streaming. 
+
+Click your user icon in the bottom left of the screen and click Settings. In the General section, show Advanced Parameters and change the “Stream Chat Response” from default to Off, click Save.
 
 ..  image:: ./_static/class5-30.png
 
+
+Click your user icon in the bottom left of the screen and click Admin Panel, Settings, Connections, and under “OpenAI API”,
+
 ..  image:: ./_static/class5-31.png
+
+change the endpoint to be the AI Gateway with a dummy api key
+
+.. code-block:: bash
+
+   https://aigw.ai.local/v1
+
+Disable the Ollama API and click Save.
 
 ..  image:: ./_static/class5-32.png
 
-Apply PII-redactor policy for open-webui
+ In Postman, apply the PII-redactor policy for open-webui using the *ai-deliver-optimize-default-rag-open-webui* API call in the collection
 
 ..  image:: ./_static/class5-33.png
 
@@ -999,6 +1061,9 @@ Correspoinding logs from AIGW
    2024/12/27 22:18:53 INFO service response name=openai/qwen2.5:1.5b result="map[status:200 OK]"
    2024/12/27 22:18:53 INFO running processor name=pii-redactor
    2024/12/27 22:18:53 INFO processor response name=pii-redactor metadata="&   {RequestID:3ec0d2bb033c60f793032a30a73119cc StepID:01940a33-0cbb-7140-9f38-9321a7f0e791    ProcessorID:f5:pii-redactor ProcessorVersion:v1 Result:map[prompt_predictions:[map[end:32    entity_group:FULLNAME score:0.9885627627372742 start:21 word: tony smart]] response_predictions:[map   [end:14 entity_group:MIDDLENAME score:0.7905202507972717 start:6 word: Smart**] map[end:461    entity_group:DATE score:0.9987144470214844 start:443 word: December 11, 1970] map[end:489    entity_group:PHONE_NUMBER score:0.8249641060829163 start:476 word: 514-628-0203] map[end:529    entity_group:SSN score:0.9800612926483154 start:517 word: 219-09-9999] map[end:558    entity_group:MIDDLENAME score:0.6217395067214966 start:553 word: Tony] map[end:564    entity_group:MIDDLENAME score:0.9490991234779358 start:558 word: Smart] map[end:626    entity_group:CURRENCYSYMBOL score:0.8546352386474609 start:622 word: $10] map[end:935    entity_group:FIRSTNAME score:0.8163735270500183 start:930 word: Tony] map[end:941    entity_group:MIDDLENAME score:0.8130416870117188 start:935 word: Smart]]] Tags:map[]}"
+
+|
+|
 
 ..  image:: ./_static/mission5-1.png
 

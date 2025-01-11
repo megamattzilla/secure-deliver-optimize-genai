@@ -194,6 +194,23 @@ Ensure you have all the model downloaded before you proceed.
 
 Test interacting with LLM model. Feel free to test with different language model.
 
+.. code-block:: bash
+
+   多么美好的一天
+
+.. code-block:: bash
+
+   素晴らしい一日でした
+
+.. code-block:: bash
+
+   เป็นวันที่ยอดเยี่ยมจริงๆ
+
+.. code-block:: bash
+
+   hari yang indah sekali
+
+
 .. attention:: 
    Please do note that UDF environment were setup with CPU (no GPU). Hence, all model inference will run on CPU instead of GPU. Performance may not be optimum but should be acceptable for lab. Please be patience as it depends on CPU consumption at that time of inference. First inference of the model may be slow and should be alright after that.
 
@@ -512,7 +529,7 @@ RAG incorporate proprietary data to complement models and deliver more contextua
 
 **nomic-embed-text** is an embedding model that able to convert text into a vector array. In order for nomic-embed-text to work, the Qdrant dimension have to be updated to **768**.
 
-From Windows Jumphost, update the Qdrant Chain dimension to 768.
+From Windows Jumphost, confirm the Qdrant Chain dimension is set to 768.
 
 Click on **Additional Parameter**
 
@@ -527,7 +544,8 @@ Ensure **Vector Dimension** is 768 and **Similarity** is **Cosine**
 .. NOTE:: 
    Click anywhere outside to exit from the pop-up
 
-Click **Upsert Vector Database**
+
+Click **Upsert Vector Database** to performs the insert + update action on specified points
 
 ..  image:: ./_static/class3-28.png
 
@@ -583,12 +601,16 @@ Suggested sample question ask to the RAG chatbot
 
 ..  image:: ./_static/class3-33-1.png
 
-Source of inforamtion "proprietary data" obtained from the text file store on the Windows desktop under document folder.
+Source of inforamtion or "proprietary data" obtained from the text file store on Documents folder on the Windows jumphost.
 
 ..  image:: ./_static/class3-34.png
 
 .. attention:: 
    Generic Small Language Model (SLM) may not be as efficient compare to a Large Language Model (LLM) and may constantly encounter hallucination. You may modify the chunking size and chuking overlap to reduce hallucination. For the purpose of a lab, we are not expecting the model to provides an accurate and intelligent answer.
+
+.. attention:: 
+   You may occasionally see document identifiers, such as *"<doc id='2'>,"* appear in the response output. This issue can arise for several reasons, such as inadequate post-processing where metadata is not properly cleaned or removed, or during pre-processing when data is tagged with metadata that the model interprets as legitimate text. In this particular lab, the issue is likely due to a combination of factors, including the inference and embedding model's behavior and the use of a CPU for processing.
+   
 
 **You have successfully build a GenAI RAG Chatbot**
 

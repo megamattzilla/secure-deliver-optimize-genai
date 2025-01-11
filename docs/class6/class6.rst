@@ -47,7 +47,10 @@ Here are some of the example reports shown on F5XC Web App Scanning on LLM Disco
 
 ..  image:: ./_static/class6-2.png
 
+|
+|
 
+..  image:: ./_static/mission6-1.png
 
 .. toctree::
    :maxdepth: 1
