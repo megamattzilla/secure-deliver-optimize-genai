@@ -7,3 +7,4 @@ nginx.conf
 inter-ca.crt
 root-ca.crt
 Dockerfile
+fetch-pull.sh

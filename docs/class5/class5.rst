@@ -899,9 +899,21 @@ Click on Workspace in the Open WebUI interface
 
 ..  image:: ./_static/class5-19.png
 
+Click on Knowledge and the “+” to setup a knowledge base to make its responses more accurate and relevant.
+
 ..  image:: ./_static/class5-20.png
 
+Type a name for the knowledge base and click **Create Knowledge**
+
+.. code-block:: bash
+
+   Arcadia Corp AI Services
+
+
 ..  image:: ./_static/class5-21.png
+
+
+Click “+” and “Upload files” to add content
 
 ..  image:: ./_static/class5-21-1.png
 
@@ -912,15 +924,29 @@ Select the file **arcadia-team-with-sensitve-data-v2.txt**
 
 ..  image:: ./_static/class5-21-3.png
 
+
+Click on Models and “+” to add a new custom model. Type a name for the model **Arcadia Corp AI Services**, select the base model as **qwen2.5:1.5b**
+
 ..  image:: ./_static/class5-22.png
 
-Configure as shown below then click **Save & Create**.
+make visibility Public, and select the previously created knowledge base. Click **Save & Create**.
+
 
 ..  image:: ./_static/class5-23.png
+
+Click on New Chat, and select the previously created custom model
 
 ..  image:: ./_static/class5-24.png
 
 ..  image:: ./_static/class5-25.png
+
+
+Enter in an example prompt asking for information about
+
+.. code-block:: bash
+
+   who is chairman of the board
+
 
 ..  image:: ./_static/class5-26.png
 
