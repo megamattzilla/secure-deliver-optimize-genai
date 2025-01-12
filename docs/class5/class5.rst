@@ -380,7 +380,7 @@ Confirm AIGW policy successfully applied via AIGW UI.
 
 Currently, GenAI RAG chatbot pointing to the Ollama API. Update GenAI RAG Chatbot to point to AIGW API endpoint.
 
-We are going to use OpenAI compatible API. We are going to use **ChatOpenAI Custom** node.
+Click the “+” button in the Flowise UI and search using keyword “custom”. We are going to use **ChatOpenAI Custom** node
 
 Drag the **ChatOpenAI Custom** node onto the FlowiseAI canvas.
 
@@ -405,7 +405,7 @@ Here a series of task that you may need to perform.
 
 ..  image:: ./_static/class5-13-4.png
 
-4. Break the link between **ChatOllama with Conversational Retrival QA Chain** and connect **Conversational Retrival QA Chain** to **ChatOpenAI Custom** node.
+1. Click the “x”  on the link to break the link between **ChatOllama with Conversational Retrieval QA Chain** and connect **Conversational Retrieval QA Chain** to **ChatOpenAI Custom** node. Click on save icon to save chatflow.
 
 ..  image:: ./_static/class5-14.png
 
@@ -425,6 +425,17 @@ Interact with the GenAI RAG chatbot with an example question like below:-
    Who is chairman of the board
 
 You may need to make multiple queries, as hallucinations can occur. Meanwhile, monitor the AIGW logs to confirm that the GenAI RAG chatbot traffic is successfully passing through the AIGW
+
+You may use the following command (terminal CLI) to monitor AIGW logs if you hasn't got a terminal to monitor AIGW logs.
+
+.. code-block:: bash
+
+   cd ~/ai-gateway
+
+.. code-block:: bash
+
+   kubectl -n ai-gateway logs -f -l app.kubernetes.io/name=aigw
+
 
 ..  image:: ./_static/class5-15.png
 
@@ -627,10 +638,10 @@ AI Gateway Policy ::
              - name: pii-redactor
    
      - name: rag-ai-chatbot-prompt
-       inputStages:
-       - name: prompt-injection
-         steps:
-           - name: prompt-injection
+       #inputStages:
+       #- name: prompt-injection
+       #  steps:
+       #    - name: prompt-injection
        services:
        - name: ollama/llama3.2
    
@@ -936,7 +947,7 @@ make visibility Public, and select the previously created knowledge base. Click 
 
 ..  image:: ./_static/class5-23.png
 
-Click on New Chat, and select the previously created custom model
+Click on New Chat, and select the previously created custom model **Arcadia Corp AI Services** from the model drop down list.
 
 ..  image:: ./_static/class5-24.png
 
@@ -965,19 +976,19 @@ Enter in prompt asking for details about Tony Smart and note the PII data being 
 
 ..  image:: ./_static/class5-29.png
 
-Update Open-WebUI configuration to route via AIGW
+**Update Open-WebUI configuration to route via AIGW**
 
-We need to turn off stream as AIGW don't support streaming. 
+To enable Open-WebUI to interact with AIGW, we need to first turn off stream (stream=false) on Open-WebUI as AIGW do not yet support streaming. 
 
-Click your user icon in the bottom left of the screen and click **Settings**. In the General section, show **Advanced Parameters** and change the **Stream Chat Response** from default to **Off**, click **Save**
+Click your **user icon** in the bottom left of the screen and click **Settings**. In the General section, show **Advanced Parameters** and change the **Stream Chat Response** from default to **Off**, click **Save**
 
 ..  image:: ./_static/class5-30.png
 
-Click your user icon in the bottom left of the screen and click Admin Panel, Settings, Connections, and under “OpenAI API”, 
+To update Open-WebUI to point to AIGW, click your **user icon** in the bottom left of the screen and click **Admin Panel**, **Settings**, **Connections**, and under “OpenAI API”, 
 
 ..  image:: ./_static/class5-31.png
 
-change the endpoint to be the AI Gateway with a dummy api key 
+change the endpoint to be the AI Gateway with a dummy api key (e.g. abc123). No authentication required to the AIGW. 
 
 .. code-block:: bash
 
