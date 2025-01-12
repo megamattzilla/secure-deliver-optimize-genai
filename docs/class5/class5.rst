@@ -1048,6 +1048,18 @@ Corresponding logs from AIGW
 
 ..  image:: ./_static/class5-35.png
 
+Explore the following query to retrieve PII data.
+
+.. code-block:: bash
+
+   what is tony smart date of birth
+
+
+.. code-block:: bash
+
+   what is tony smart email address   
+
+
 Corresponding logs from AIGW
 
 .. code-block:: bash
