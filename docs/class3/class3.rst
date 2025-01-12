@@ -586,6 +586,8 @@ Sample RAG Chatbot conversation
 
 Suggested sample question ask to the RAG chatbot
 
+.. Note:: 
+   AI response is non-deterministric. It means that give the same input, it can produce different output at different times - no gurantee to be consistent and can vary depending on internal factors within the model, like the order of data processing or random initilization. Hence, sometimes, you may need to ask twice for the language model to give an answer.
 
 .. code-block:: bash
 
@@ -606,11 +608,9 @@ Source of inforamtion or "proprietary data" obtained from the text file store on
 ..  image:: ./_static/class3-34.png
 
 .. attention:: 
-   Generic Small Language Model (SLM) may not be as efficient compare to a Large Language Model (LLM) and may constantly encounter hallucination. You may modify the chunking size and chuking overlap to reduce hallucination. For the purpose of a lab, we are not expecting the model to provides an accurate and intelligent answer.
+   Generic Small Language Model (SLM) may not be as efficient compare to a Large Language Model (LLM) and may constantly encounter hallucination. You may modify the chunking size and chunking overlap to reduce hallucination. For the purpose of a lab, we are not expecting the model to provides an accurate and intelligent answer.
 
-.. attention:: 
-   You may occasionally see document identifiers, such as *"<doc id='2'>,"* appear in the response output. This issue can arise for several reasons, such as inadequate post-processing where metadata is not properly cleaned or removed, or during pre-processing when data is tagged with metadata that the model interprets as legitimate text. In this particular lab, the issue is likely due to a combination of factors, including the inference and embedding model's behavior and the use of a CPU for processing.
-   
+
 
 **You have successfully build a GenAI RAG Chatbot**
 

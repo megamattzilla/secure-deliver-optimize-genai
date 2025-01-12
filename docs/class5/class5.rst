@@ -8,6 +8,8 @@ Class 5: Secure, Deliver and Optimize GenAI ChatBot
 
 AI services and applications are a subset of modern applications. Securing AI apps requires a holistic, end-to-end approach. **You cannot fully protect AI applications without also securing the underlying web applications and APIs.** AI services are powered by APIs, which serve as the backbone of these systems. Securing APIs is critical to maintaining the integrity and reliability of AI services. Below are the 7 key security controls that are essential for ensuring the overall security of modern web applications, API and AI services.
 
+For the purpose of this class, we will only focus on AI Gateway security control - Runtime Security and Traffic Governance. Please reach out for further deep dive session on other controls.
+
 ..  image:: ./_static/class5-1-1.png
 
 1 - Fundamental about F5 AI Gateway

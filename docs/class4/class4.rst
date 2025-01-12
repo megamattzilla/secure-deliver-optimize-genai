@@ -84,6 +84,13 @@ Try to interact with GenAI RAG Chatbot.
 
 ..  image:: ./_static/class4-9.png
 
+
+.. attention:: 
+   You may occasionally see document identifiers, such as *"<doc id='2'>,"* appear in the response output. This issue can arise for several reasons, such as inadequate post-processing where metadata is not properly cleaned or removed, or during pre-processing when data is tagged with metadata that the model interprets as legitimate text. In this particular lab, the issue is likely due to a combination of factors, including the inference and embedding model's behavior and the use of a CPU for processing. **For the purposes of this class, please ignore if any imperfection of the AI responses.**
+
+   ..  image:: ./_static/class4-10-1.png
+   
+
 You successfully integrate GenAI RAG chatbot into your modern arcadia trading platform application.
 
 ..  image:: ./_static/class4-10.png
