@@ -3,6 +3,11 @@ Class 5: Secure, Deliver and Optimize GenAI ChatBot
 
 ..  image:: ./_static/mission5.png
 
+Below are the common building blocks of AI Services - AI Reference Architecture. We will go through some of those components in the class. 
+
+..  image:: ./_static/class5-1-0.png
+
+Here is the implementation of the AI Reference Architecture for the class.
 
 ..  image:: ./_static/class5-1.png
 
@@ -163,7 +168,7 @@ For details, please refer to official documentation. Here a brief description.
 .. code-block:: bash
 
    kubectl -n ai-gateway create secret generic f5-license \ 
-   --from-literal=license=eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6InYxIiwiamt1IjoiaHR0cHM6Ly9wcm9kdWN0LmFwaXMuZjUuY29tL2VlL3YxL2tleXMvandrcyJ9.eyJzdWIiOiJGTkktODc3NGE1NzYtYzRmMC00NjdmLTlkZmQtOTFkYTAxNmQyYTAxIiwiaWF0IjoxNzI5NjE2NzQyLCJpc3MiOiJGNSBJbmMuIiwiYXVkIjoidXJuOmY1OnRlZW0iLCJqdGkiOiJkZWVkOWJiMC05MDk3LTExZWYtOWE5Ni0zYmRiNjE5YzM2ZTciLCJmNV9vcmRlcl90eXBlIjoicGFpZCIsImY1X3NhdCI6MTgyNDA3NjgwMH0.mTIkAvGNcqYFRHURnFpm0B_E6DJKoQ8IZCNTS7DV9-iTUdc-tU99CPRjdlF88sd7QhI8ligoQouU979JgLEDLLIHymUTWs3v96APLR7EaFaRhO0BlmKIDGf0cGZWOvSlvUi2Z_75Xbjo5yMy8Kzr3YBznqRtUvF2exBdV94iRAoq3q61k_emOHR8-jtoheHPXBAUU3mQyQLpsj55JRIWbY3c_RKmxLTlM3dGXpUXkyWJHLpUnTS_OU3HGjL9vfCbHrtM0zSPAvhrsWUMDaO6BXUHlFQcwgEyELjbemKNvXK71IjDXR-h_PAaYOVjhiTszQ0_m7a9KMLz1fLHCXm31zdAFZyMChD75SXNGlqB0AhRfmgRQw5bCw7oMVwbC5eZtUMXZMH_sshKNB5NI9weLF8LOzFEe7MoGm2MoaUbxP9Sy7lEE3rqkJgu_tZVvWZwn2XjMQYB0cqGtPnwkPVti10zLLRlucm5yUWNyo-zcimCUl05jqzI-qCK3-G70K2kolqS_7WlXe1kQ5czS4-BLwN4IupS0cCn47qdwkRAVgwLCdN5NJAxkzSZaevequ6aCx-tA0GKg1BnFdMUJeFGeoOSQ5dnCvL2sSofhiok9rJXAzAgXK6QB0ZubsmQOdcHYZ85opSxu-DdOL4fsUcY5dl1uAnGTKoq4-A0uDiuVtU 
+   --from-literal=license=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJteSBmYWtlIGxpY2Vuc2UiLCJpc3MiOiJGNSBJbmMuIiwgImF1ZCI6InVybjpmNTp0ZWVtIiwgImY1X29yZGVyX3R5cGUiOiJwYWlkIiwgImY1X29yZGVyX3N1YnR5cGUiOiIiLCAiZjVfc2F0IjogMTg2MTk5MjAwMH0.LZgZn7R1h5wrtXhUo3XYiW-YNBZUn_3n5b_l8hz-VxhZU3CBG5EkVRrejtIb97rWEvbx7btKtz3JKAk-DPqjONJ9A0WehGNItr3ExAxmmnvop9HL2d85L4mFwnyNYQwejvOlax3Athsv1rFqyNGmuGOrtv2M6K6a2FaO_jb96FV92FjaWWpiPr1pxl-nKj6wN-YRMZwLeTYXAHiQXEIoRrFNbSMG8OqTzVfB5xi_ZwaqHv_7Z1d2664BBqQkyFU2o7eOh3Lm8FKM7l0okK2QOSTrFYJKUQoB3cxKfIzyC-38RAZM0fwlo7K1QtoSPIZT9qNXUnFzdo-nZDPoRrrxyg 
 
 ..  image:: ./_static/class5-2.png
 
@@ -343,6 +348,13 @@ Create an Nginx ingress resource to expose AIGW Processor service externally fro
 
 ..  image:: ./_static/class5-9.png
 
+|
+
+..  image:: ./_static/break.png
+
+|
+
+
 5 - Update AIGW policy
 ----------------------
 
@@ -353,8 +365,15 @@ Import AIGW policy configuration into Postman.
 
 Import into Postman collection. A copy of the postman collection located in **Documents** folder
 
+..  image:: ./_static/class5-11-a.png
 
-..  image:: ./_static/class5-11.png
+Click **Import** to import the collection.
+
+..  image:: ./_static/class5-11-b.png
+
+Imported AIGW policy collection onto Postman.
+
+..  image:: ./_static/class5-11-c.png
 
 Monitor AIGW Core logs.
 
