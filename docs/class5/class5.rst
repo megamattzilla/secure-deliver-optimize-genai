@@ -193,6 +193,11 @@ AIGW Core is running and listening for traffic.
 
 ..  image:: ./_static/class5-3.png
 
+.. attention:: 
+   If you saw issues on 401 status code on unauthorized as shown below, this due to the aigw license token expire or invalid. You can safely ignore for this lab as license entitlement not enforced as of this lab creation.
+   
+   ..  image:: ./_static/class5-3-1.png
+
 
 3 - Deploy AI GW User Interface.
 --------------------------------
@@ -348,12 +353,6 @@ Create an Nginx ingress resource to expose AIGW Processor service externally fro
 
 ..  image:: ./_static/class5-9.png
 
-|
-
-..  image:: ./_static/break.png
-
-|
-
 
 5 - Update AIGW policy
 ----------------------
@@ -375,7 +374,7 @@ Imported AIGW policy collection onto Postman.
 
 ..  image:: ./_static/class5-11-c.png
 
-Monitor AIGW Core logs.
+Monitor AIGW Core logs from a Linux terminal.
 
 .. code-block:: bash
 
@@ -392,6 +391,13 @@ From Postman, expand the uploaded collection and select **ai-deliver-optimize-de
 Confirm AIGW policy successfully applied via AIGW UI.
 
 ..  image:: ./_static/class5-11-2.png
+
+
+|
+
+..  image:: ./_static/break.png
+
+|
 
 
 6 - Update LLM Orchestrator to point to AI Gateway
@@ -657,10 +663,10 @@ AI Gateway Policy ::
              - name: pii-redactor
    
      - name: rag-ai-chatbot-prompt
-       #inputStages:
-       #- name: prompt-injection
-       #  steps:
-       #    - name: prompt-injection
+       inputStages:
+       - name: prompt-injection
+         steps:
+           - name: prompt-injection
        services:
        - name: ollama/llama3.2
    
@@ -999,7 +1005,11 @@ Enter in prompt asking for details about Tony Smart and note the PII data being 
 
 To enable Open-WebUI to interact with AIGW, we need to first turn off stream (stream=false) on Open-WebUI as AIGW do not yet support streaming. 
 
-Click your **user icon** in the bottom left of the screen and click **Settings**. In the General section, show **Advanced Parameters** and change the **Stream Chat Response** from default to **Off**, click **Save**
+Click your **user icon** in the bottom left of the screen and click **Settings**.
+
+..  image:: ./_static/class5-30-0.png
+
+In the General section, show **Advanced Parameters** and change the **Stream Chat Response** from default to **Off**, click **Save**
 
 ..  image:: ./_static/class5-30.png
 
@@ -1065,7 +1075,13 @@ Corresponding logs from AIGW
 
    give me details about tony smart
 
+
+.. attention:: 
+   If you experience PII not redacted as shown below, plese start/repeat the same question with a **New Chat**. That will clear the context windows and start afresh.
+
+
 ..  image:: ./_static/class5-35.png
+
 
 Explore the following query to retrieve PII data.
 
@@ -1073,11 +1089,15 @@ Explore the following query to retrieve PII data.
 
    what is tony smart date of birth
 
+..  image:: ./_static/class5-36.png
+
 
 .. code-block:: bash
 
    what is tony smart email address   
 
+..  image:: ./_static/class5-37.png
+   
 
 Corresponding logs from AIGW
 

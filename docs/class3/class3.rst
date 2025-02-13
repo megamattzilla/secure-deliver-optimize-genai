@@ -157,6 +157,9 @@ Successfully signup and login to Open-WebUI
 
 ..  image:: ./_static/class3-8.png
 
+.. Note:: 
+   You do not need to update Open-WebUI to the latest version when prompted. This lab has been tested with the currently installed version, so you can safely ignore the update recommendation.
+
 
 4 - Download Language Model
 ---------------------------
@@ -295,6 +298,11 @@ Deploy LLM Orchstrator to facilitate AI component communication. Flowise AI - an
 
 ..  image:: ./_static/class3-13.png
 
+
+.. Note:: 
+   Ensure all pods are in **Running** and **READY** state where all pods count ready before proceed.
+
+
 Flowise is installed with the following custom values. Plese take notes of the password as you may need it for the next section.
 
 values.yaml ::
@@ -362,6 +370,12 @@ A copy of the chatflow located on the jumphost **Documents** directory. Select t
 Save the chatflow (arcadia-rag)
 
 ..  image:: ./_static/class3-18.png
+
+.. Note:: 
+   A **Sync Nodes** icons may shown as below. Click **Syc Nodes** icons and save the chatflow. Sync Nodes feature allows you to synchronize data or actions between different parts of the LLM application flow - updates variables or states across different parts of the application.
+
+..  image:: ./_static/class3-18-1.png
+
 
 To successfully build the full langchain pipeline / chatflow, you need to upload organization context information into the RAG pipeline. Arcadia context information file located in the **Documents** directory. Under **Text File** node, Click **Upload File**
 
@@ -447,7 +461,7 @@ Confirm that you can login to Qdrant vector database
 8 - Build RAG pipeline with FlowsieAI/Langchain
 -----------------------------------------------
 
-Load the imported "arcadia-rag" chatflow.
+Load the imported "arcadia-rag" chatflow (if you hasn't has it loaded) .
 
 ..  image:: ./_static/class3-24.png
 
@@ -587,7 +601,7 @@ Sample RAG Chatbot conversation
 Suggested sample question ask to the RAG chatbot
 
 .. Note:: 
-   AI response is non-deterministric. It means that give the same input, it can produce different output at different times - no gurantee to be consistent and can vary depending on internal factors within the model, like the order of data processing or random initilization. Hence, sometimes, you may need to ask twice for the language model to give an answer.
+   AI responses are non-deterministric. It means that give the same input, it can produce different output at different times - no gurantee to be consistent and can vary depending on internal factors within the model, like the order of data processing or random initilization. Hence, sometimes, you may need to ask twice for the language model to give an answer. For example "who is chris wong" may need to ask twice to the chatbot.
 
 .. code-block:: bash
 
@@ -608,9 +622,10 @@ Source of inforamtion or "proprietary data" obtained from the text file store on
 ..  image:: ./_static/class3-34.png
 
 .. attention:: 
-   Generic Small Language Model (SLM) may not be as efficient compare to a Large Language Model (LLM) and may constantly encounter hallucination. You may modify the chunking size and chunking overlap to reduce hallucination. For the purpose of a lab, we are not expecting the model to provides an accurate and intelligent answer.
+   **Generic** Small Language Model (SLM) may not be as efficient compare to a Large Language Model (LLM) and may constantly encounter hallucination. You may modify the chunking size and chunking overlap to reduce hallucination. For the purpose of a lab, we are not expecting the model to provides an accurate and intelligent answer.
 
-
+|
+|
 
 **You have successfully build a GenAI RAG Chatbot**
 

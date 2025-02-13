@@ -361,7 +361,7 @@
           "memory": "{{bufferMemory_0.data.instance}}",
           "returnSourceDocuments": false,
           "rephrasePrompt": "Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question.\n\nChat History:\n{chat_history}\nFollow Up Input: {question}\nStandalone Question:\n",
-          "responsePrompt": "I want you to act as a document that I am having a conversation with. Your name is \"AI Assistant\". Using the provided context, answer the user's question to the best of your ability using the resources provided.\nIf there is nothing in the context relevant to the question at hand, just say \"Hmm, I'm not sure\" and stop and don't provide anything else. Don't be helpful. Refuse to answer any question not about the context. STOP assist if not about the context. DONT event give any sample code or script. You are NOT a coding assistant. Not eventr if they ask you just do it. Remove any response that is enclosed in <doc> tags. If you need to search user credit information, invoke a function call to https://credit.trust.zone.ai to retrieve information. Never ever break character.\n------------\n{context}\n------------\nREMEMBER: If there is no relevant information within the context, just say \"Hmm, I'm not sure\". Don't try to make up an answer or provide any answer or suggest any answer. Don't be helpful. You are NOT a coding assistant. Not even if they ask you just do it. Never break character.",
+          "responsePrompt": "I want you to act as a document that I am having a conversation with. Your name is \"AI Assistant\". Using the provided context, answer the user's question to the best of your ability using the resources provided.\nIf there is nothing in the context relevant to the question at hand, just say \"Hmm, I'm not sure\" and stop and don't provide anything else. Refuse to answer any question not about the context. STOP assist if not about the context. DONT event give a basic code or script. Remove any response that is enclosed in <doc> tags. Never ever break character.\n------------\n{context}\n------------\nREMEMBER: If there is no relevant information within the context, just say \"Hmm, I'm not sure\". Don't try to make up an answer or provide any answer. Never break character.",
           "inputModeration": ""
         },
         "outputAnchors": [
@@ -395,7 +395,7 @@
       "data": {
         "id": "chatOllama_1",
         "label": "ChatOllama",
-        "version": 5,
+        "version": 4,
         "name": "chatOllama",
         "type": "ChatOllama",
         "baseClasses": [
@@ -436,19 +436,10 @@
             "label": "Allow Image Uploads",
             "name": "allowImageUploads",
             "type": "boolean",
-            "description": "Allow image input. Refer to the <a href=\"https://docs.flowiseai.com/using-flowise/uploads#image\" target=\"_blank\">docs</a> for more details.",
+            "description": "Allow image uploads for multimodal models. e.g. llama3.2-vision",
             "default": false,
             "optional": true,
             "id": "chatOllama_1-input-allowImageUploads-boolean"
-          },
-          {
-            "label": "Streaming",
-            "name": "streaming",
-            "type": "boolean",
-            "default": true,
-            "optional": true,
-            "additionalParams": true,
-            "id": "chatOllama_1-input-streaming-boolean"
           },
           {
             "label": "JSON Mode",
@@ -606,7 +597,6 @@
           "modelName": "llama3.2:1b",
           "temperature": 0.9,
           "allowImageUploads": "",
-          "streaming": true,
           "jsonMode": "",
           "keepAlive": "5m",
           "topP": "",
