@@ -14,3 +14,4 @@ Welcome to the |classbold|
    introduction/introduction*
    prerequisite/prerequisite*
    class*/class*
+   bonus*/bonus*
