@@ -182,6 +182,8 @@ Repeat the above to download the following LLM model
 +----------------------------+---------------------------------------------+
 | llama3.2:1b                | Meta Llama3.2 (1b)                          |
 +----------------------------+---------------------------------------------+
+| llama3                     | Meta Llama 3 (8b) - only use for GPUaaS     |
++----------------------------+---------------------------------------------+
 | qwen2.5:1.5b               | Alibaba Cloud Qwen2 (1.5b)                  |
 +----------------------------+---------------------------------------------+
 | hangyang/rakutenai-7b-chat | Rakuten AI (7b)                             |
@@ -365,7 +367,16 @@ Import arcadia RAG chatflow into flowise. Select **Add New**, click **Settings i
 
 A copy of the chatflow located on the jumphost **Documents** directory. Select the chatflow json file.
 
-..  image:: ./_static/class3-17.png
+
+.. Note:: 
+   Ensure you choose the right json file according to the environment use cases - CPU or GPUaaS.
+
+   CPU - "*arcadia-rag Chatflow.json*"
+
+   GPUaaS - "*arcadia-rag-gpuaas Chatflow.json*"
+
+
+..  image:: ./_static/class3-17-1.png
 
 Save the chatflow (arcadia-rag)
 
@@ -376,6 +387,16 @@ Save the chatflow (arcadia-rag)
 
 ..  image:: ./_static/class3-18-1.png
 
+.. attention:: 
+   **For GPUaaS ONLY** 
+   
+   Ensure you have a valid GPUaaS API key (if your lab based on GPU) and create as following:-
+
+   ..  image:: ./_static/class3-18-2.png
+
+   ..  image:: ./_static/class3-18-3.png
+
+   
 
 To successfully build the full langchain pipeline / chatflow, you need to upload organization context information into the RAG pipeline. Arcadia context information file located in the **Documents** directory. Under **Text File** node, Click **Upload File**
 
@@ -536,6 +557,35 @@ Here are some of the node/chain used.
 |                                             | storage mechanism for storing/retrieving conversations.               |
 +---------------------------------------------+-----------------------------------------------------------------------+
 
+.. Attention:: 
+
+   **For GPUaaS ONLY**
+
+   +---------------------------------------------+-----------------------------------------------------------------------+
+   | Node / Chain                                | Description                                                           |
+   +=============================================+=======================================================================+
+   |  **ChatOpenAI Custom**                      | Custom/FineTuned model using OpenAI Chat compatible API.              |
+   |                                             |                                                                       |
+   |  Connect Credential                         |                                                                       |
+   |                                             |                                                                       |
+   |     gpuaas-key                              | Ensure you obtains a valid GPUaaS API key                             |                    
+   |                                             |                                                                       |
+   |  Base URL URL:                              |                                                                       |
+   |                                             |                                                                       |
+   |     https://gpuaas1.xc.edgecnf.com/v1       | This is the GPUaaS API inference endpoint                             |
+   |                                             |                                                                       |
+   |  Model Name:                                |                                                                       |
+   |                                             |                                                                       |
+   |     llama3                                  | llama3 will be use for the inference. Its 8B parameter model          |
+   |                                             |                                                                       |
+   |  Temperature:                               |                                                                       |
+   |                                             |                                                                       |
+   |      0.9                                    |                                                                       |
+   +---------------------------------------------+-----------------------------------------------------------------------+
+
+
+
+
 Vectorize Proprietary Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -591,7 +641,7 @@ Input on the chat box
 
 
 .. attention:: 
-   You are using CPU for inference. Hence, expect some delay in the response.
+   If you are using CPU for inference. Hence, expect some delay in the response.
 
 
 Sample RAG Chatbot conversation
@@ -618,6 +668,9 @@ Suggested sample question ask to the RAG chatbot
 ..  image:: ./_static/class3-33-1.png
 
 Source of inforamtion or "proprietary data" obtained from the text file store on Documents folder on the Windows jumphost.
+
+.. NOTE:: 
+   You can clear the chat history with the middle red button on the chat window.
 
 ..  image:: ./_static/class3-34.png
 
