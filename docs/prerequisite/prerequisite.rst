@@ -83,6 +83,52 @@ Sucessfully login to registry server.
 ..  image:: /_static/intro/intro-9.png
 
 
+KASM desktop
+------------
+Alternatively, if you don't have access to RDP or ssh client from your laptop due to company security policy, you can use KASM desktop (via https) to do the lab.
+
+
+..  image:: /_static/intro/kasm-0.png
+
+
+Login to Desktop browser (Chrome) with the following credential.
+
++----------------+---------------+
+| **Username**   | f5            |
++----------------+---------------+
+| **Password**   | F5Passw0rd    |
++----------------+---------------+
+
+
+..  image:: /_static/intro/kasm-1.png
+
+
+Access Kasm Desktop from the bookmark as shown below.
+
+Ensure you allow text and images copies to the clipboard.
+
+.. Attention:: 
+   You may need to refresh the chrome browser occasionally to ensure you can copy and paste content from your laptop to KASM desktop.
+
+..  image:: /_static/intro/kasm-2.png
+
+Please notes that KASM desktop username is different from the Desktop (Chrome) browser.
+
+
++----------------+---------------+
+| **Username**   | kasm_user     |
++----------------+---------------+
+| **Password**   | F5Passw0rd    |
++----------------+---------------+
+
+
+..  image:: /_static/intro/kasm-3.png
+
+
+KASM desktop
+
+..  image:: /_static/intro/kasm-4.png
+
 
 Lab Setup Environment
 ---------------------
