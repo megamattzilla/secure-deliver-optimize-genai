@@ -817,7 +817,7 @@ AI Gateway Policy - CPU ::
    
 
 .. Note:: 
-   AIGW policy for GPUaaS similar to CPU except that the API endpoint pointing to a GPUaaS API endpoint (**https://gpuaas1.xc.edgecnf.com/v1/chat/completions**) and a valid GPUaaS API environment variable defined.
+   AIGW policy for GPUaaS similar to CPU except that the API endpoint pointing to a GPUaaS API endpoint (**https://api.gpu.nextcnf.com/v1/chat/completions**) and a valid GPUaaS API environment variable defined.
 
 
 AI Gateway Policy - GPUaaS ::
@@ -845,7 +845,7 @@ AI Gateway Policy - GPUaaS ::
        type: llama3
        executor: openai
        config:
-          endpoint: 'https://gpuaas1.xc.edgecnf.com/v1/chat/completions'
+          endpoint: 'https://api.gpu.nextcnf.com/v1/chat/completions'
           secrets:
            - source: EnvVar
              targets:
@@ -855,7 +855,7 @@ AI Gateway Policy - GPUaaS ::
        type: llama3.2:1b
        executor: openai
        config:
-          endpoint: 'https://gpuaas1.xc.edgecnf.com/v1/chat/completions'
+          endpoint: 'https://api.gpu.nextcnf.com/v1/chat/completions'
           secrets:
            - source: EnvVar
              targets:
@@ -865,7 +865,7 @@ AI Gateway Policy - GPUaaS ::
        type: codellama:7b
        executor: openai
        config:
-          endpoint: 'https://gpuaas1.xc.edgecnf.com/v1/chat/completions'
+          endpoint: 'https://api.gpu.nextcnf.com/v1/chat/completions'
           secrets:
            - source: EnvVar
              targets:
@@ -874,7 +874,7 @@ AI Gateway Policy - GPUaaS ::
        type: phi3
        executor: openai
        config:
-          endpoint: 'https://gpuaas1.xc.edgecnf.com/v1/chat/completions'
+          endpoint: 'https://api.gpu.nextcnf.com/v1/chat/completions'
           secrets:
            - source: EnvVar
              targets:
@@ -883,7 +883,7 @@ AI Gateway Policy - GPUaaS ::
        type: qwen2.5:1.5b
        executor: openai
        config:
-          endpoint: 'https://gpuaas1.xc.edgecnf.com/v1/chat/completions'
+          endpoint: 'https://api.gpu.nextcnf.com/v1/chat/completions'
           secrets:
            - source: EnvVar
              targets:
@@ -893,7 +893,7 @@ AI Gateway Policy - GPUaaS ::
        type: hangyang/rakutenai-7b-chat
        executor: openai
        config:
-          endpoint: 'https://gpuaas1.xc.edgecnf.com/v1/chat/completions'
+          endpoint: 'https://api.gpu.nextcnf.com/v1/chat/completions'
           secrets:
            - source: EnvVar
              targets:
@@ -1465,6 +1465,15 @@ Corresponding logs from AIGW
 Prompt Injection
 ~~~~~~~~~~~~~~~~~
 
+A Prompt Injection Vulnerability occurs when user prompts alter the LLM’s behaviour or output in unintended ways. These inputs can affect the model even if they are imperceptible to humans, therefore prompt injections do not need to be human-visible/readable, as long as the content is parsed by the model.
+
+Type of Prompt Injection
+
+- Direct Prompt Injections
+- Indirect Prompt Injections
+
+In this use case, we will test a direct prompt injection.
+
 From a separate terminal, monitor AIGW Core logs.
 
 .. code-block:: bash
@@ -1500,7 +1509,7 @@ AIGW core logs shown that "**....returned 422 with rejection_reason: Possible Pr
    2025/02/28 22:31:30 INFO processor response name=prompt-injection metadata="&{RequestID:9ccd20fd797903fd6aa339de83a50164    StepID:01954eaf-ab46-7b92-a009-21e2eae097ef ProcessorID:f5:prompt-injection ProcessorVersion:v1 Result:map[confidence:0.   7921969890594482 detected:false rejection_reason:Possible Prompt Injection detected] Tags:map[attacks-detected:   [prompt-injection]]}"
    2025/02/28 22:31:30 INFO service selected name=openai/llama3
    2025/02/28 22:31:30 INFO executing openai service type=llama3
-   2025/02/28 22:31:30 INFO sending to service endpoint=https://gpuaas1.xc.edgecnf.com/v1/chat/completions
+   2025/02/28 22:31:30 INFO sending to service endpoint=https://api.gpu.nextcnf.com/v1/chat/completions
    2025/02/28 22:31:31 INFO service response name=openai/llama3 result="map[status:200 OK]"
    2025/02/28 22:31:31 INFO running processor name=prompt-injection
    2025/02/28 22:31:31 INFO processor error response name=prompt-injection metadata="&   {RequestID:ef68b732b6c5ea095e91c67942096fe9 StepID:01954eaf-b02a-794a-9609-7d8c8ffc0fe0 ProcessorID:f5:prompt-injection    ProcessorVersion:v1 Result:map[confidence:0.9999997615814209 detected:true rejection_reason:Possible Prompt Injection    detected] Tags:map[attacks-detected:[prompt-injection]]}"
@@ -1512,7 +1521,7 @@ AIGW core logs shown that "**....returned 422 with rejection_reason: Possible Pr
    2025/02/28 22:31:32 INFO processor response name=prompt-injection metadata="&{RequestID:ac856c8fe3d55dfd6c0b2995ed0ff700    StepID:01954eaf-b208-7d75-a4da-8d352eb8b1ad ProcessorID:f5:prompt-injection ProcessorVersion:v1 Result:map[confidence:0.   9888054132461548 detected:false] Tags:map[]}"
    2025/02/28 22:31:32 INFO service selected name=openai/llama3
    2025/02/28 22:31:32 INFO executing openai service type=llama3
-   2025/02/28 22:31:32 INFO sending to service endpoint=https://gpuaas1.xc.edgecnf.com/v1/chat/completions
+   2025/02/28 22:31:32 INFO sending to service endpoint=https://api.gpu.nextcnf.com/v1/chat/completions
    2025/02/28 22:31:37 INFO service response name=openai/llama3 result="map[status:200 OK]"
 
 

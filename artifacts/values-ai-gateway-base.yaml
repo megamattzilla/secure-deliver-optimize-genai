@@ -65,6 +65,8 @@ aigw:
       value: "something-fake-now"
     - name: ANTHROPIC_API_KEY
       value: "something-fake-now"
+    - name: OPENAI_PUBLIC_API_KEY
+      value: "something-fake-now"
 
   # Configuration for storage
   storage:

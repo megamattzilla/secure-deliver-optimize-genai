@@ -818,7 +818,7 @@
           "frequencyPenalty": "",
           "presencePenalty": "",
           "timeout": "",
-          "basepath": "https://gpuaas1.xc.edgecnf.com/v1",
+          "basepath": "https://api.gpu.nextcnf.com/v1",
           "baseOptions": ""
         },
         "outputAnchors": [

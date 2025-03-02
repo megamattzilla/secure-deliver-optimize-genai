@@ -572,7 +572,7 @@ Here are some of the node/chain used.
    |                                             |                                                                       |
    |  Base URL URL:                              |                                                                       |
    |                                             |                                                                       |
-   |     https://gpuaas1.xc.edgecnf.com/v1       | This is the GPUaaS API inference endpoint                             |
+   |     https://api.gpu.nextcnf.com/v1          | This is the GPUaaS API inference endpoint                             |
    |                                             |                                                                       |
    |  Model Name:                                |                                                                       |
    |                                             |                                                                       |
