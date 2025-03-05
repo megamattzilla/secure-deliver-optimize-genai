@@ -130,6 +130,12 @@ KASM desktop
 ..  image:: /_static/intro/kasm-4.png
 
 
+Windows10 Jumphost Console
+--------------------------
+
+..  image:: /_static/intro/win-0.png
+
+
 Lab Setup Environment
 ---------------------
 
