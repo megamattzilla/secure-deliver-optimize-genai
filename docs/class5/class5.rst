@@ -84,7 +84,6 @@ For details, please refer to official documentation. Here a brief description.
         - path: /simply-chat
           policy: ai-deliver-optimize-pol
           schema: openai
-   
       
 **Policies** - The policies section allows you to use different profiles based on different selectors.
 
@@ -92,7 +91,8 @@ For details, please refer to official documentation. Here a brief description.
    Example uses **rag-ai-chatbot-prompt-pol** policy which mapped to **rag-ai-chatbot-prompt** profiles.
 
    .. code-block:: yaml
-
+      :caption: AIGW profiles - "rag-ai-chatbot-prompt" mapped to AIGW policy - "rag-ai-chatbot-prompt-pol".
+      
       policies:
         - name: rag-ai-chatbot-prompt-pol
           profiles:
@@ -105,6 +105,7 @@ For details, please refer to official documentation. Here a brief description.
    Example uses **rag-ai-chatbot-prompt** profiles which defined the **prompt-injection** processor at the **inputStages** which uses **ollama/llama3.2** service.
 
    .. code-block:: yaml
+      :caption: AIGW profiles - "rag-ai-chatbot-prompt" with "prompt-injection" processor and uses "ollama/llama3.2" service. Profile will be applied on AIGW inputStage.
 
       profiles:
         - name: rag-ai-chatbot-prompt
@@ -122,6 +123,7 @@ For details, please refer to official documentation. Here a brief description.
    Processor definition for **prompt-injection**
 
    .. code-block:: yaml
+      :caption: Configuration of an external AIGW Processor - "prompt-injection" processor.
 
       processors:
         - name: prompt-injection
@@ -140,6 +142,7 @@ For details, please refer to official documentation. Here a brief description.
    Example shown service for ollama/llama3.2 (upstream LLM). This is the service that AIGW will send to. Option for executor are ollama, openai, anthropic or http. Endpoint URL is where the upstream LLM API. 
 
    .. code-block:: yaml
+      :caption: Service definition for upstream LLM - "ollama/llama3.2".
 
       - name: ollama/llama3.2
         type: llama3.2
@@ -157,15 +160,20 @@ For details, please refer to official documentation. Here a brief description.
 ..  image:: ./_static/class5-2-0.png
 
 .. code-block:: bash
+   :caption: Switch to ai-gateway K8S by changing to the directory. ai-gateway kubeconfig will automatically loaded.
 
    cd ~/ai-gateway/aigw-v0.1/charts/aigw
 
+
 .. code-block:: bash
+   :caption: Create ai-gateway namespace to host AIGW core container.
 
    kubectl create ns ai-gateway
 
 
 .. code-block:: bash
+   :caption: Create a secret for AIGW license token.
+
 
    kubectl -n ai-gateway create secret generic f5-license \ 
    --from-literal=license=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJteSBmYWtlIGxpY2Vuc2UiLCJpc3MiOiJGNSBJbmMuIiwgImF1ZCI6InVybjpmNTp0ZWVtIiwgImY1X29yZGVyX3R5cGUiOiJwYWlkIiwgImY1X29yZGVyX3N1YnR5cGUiOiIiLCAiZjVfc2F0IjogMTg2MTk5MjAwMH0.LZgZn7R1h5wrtXhUo3XYiW-YNBZUn_3n5b_l8hz-VxhZU3CBG5EkVRrejtIb97rWEvbx7btKtz3JKAk-DPqjONJ9A0WehGNItr3ExAxmmnvop9HL2d85L4mFwnyNYQwejvOlax3Athsv1rFqyNGmuGOrtv2M6K6a2FaO_jb96FV92FjaWWpiPr1pxl-nKj6wN-YRMZwLeTYXAHiQXEIoRrFNbSMG8OqTzVfB5xi_ZwaqHv_7Z1d2664BBqQkyFU2o7eOh3Lm8FKM7l0okK2QOSTrFYJKUQoB3cxKfIzyC-38RAZM0fwlo7K1QtoSPIZT9qNXUnFzdo-nZDPoRrrxyg 
@@ -184,6 +192,7 @@ Install AIGW Core helm charts
 
 
 .. code-block:: bash
+   :caption: Install AIGW Core helm chart. Helm chart will deploy AIGW core container based on info in values file.
 
    helm -n ai-gateway install aigw -f values-ai-gateway-base.yaml . 
 
@@ -191,10 +200,12 @@ Install AIGW Core helm charts
    **values-ai-gateway-base.yaml** is the base aigw.yaml configuration - without any policy configuration. **values-ai-gateway.yaml** contains configuration with policies. We can either use API to create configuration dynamically or create configuration/policy as part of the deployment. Please do notes that configuration created via API will not survive on reboot or restart. For this class, we will use API to create AIGW configuration.
 
 .. code-block:: bash
+   :caption: Retrieves and displays all Pods and Services within the ai-gateway namespace
 
    kubectl -n ai-gateway get po,svc
 
 .. code-block:: bash
+   :caption: Fetches logs from all pods in the ai-gateway namespace that have the label app.kubernetes.io/instance=aigw
 
    kubectl -n ai-gateway logs -l app.kubernetes.io/instance=aigw
    
@@ -217,19 +228,23 @@ AIGW Core is running and listening for traffic.
    This AI GW UI is an interim UI for AI GW. **AIGW UI will change in future.**
 
 .. code-block:: bash
+   :caption: Switch to AIGW manifest file directory.
 
    cd ~/ai-gateway/aigw-v0.1/aigw-ui-manifest
 
 .. code-block:: bash
+   :caption: Updates K8S resources using aigw-config.yaml file.
 
    kubectl -n ai-gateway apply -f aigw-config.yaml
 
 .. code-block:: bash
+   :caption: Updates K8S resources using ui-deploy.yaml file.
 
    kubectl -n ai-gateway apply -f ui-deploy.yaml
 
 .. code-block:: bash
-
+   :caption: Retrieves and displays all Pods and Services within the ai-gateway namespace
+   
    kubectl -n ai-gateway get po,svc
 
 AIGW UI is running.

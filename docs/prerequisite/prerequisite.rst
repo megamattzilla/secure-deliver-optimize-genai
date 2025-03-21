@@ -87,20 +87,9 @@ KASM desktop
 ------------
 Alternatively, if you don't have access to RDP or ssh client from your laptop due to company security policy, you can use KASM desktop (via https) to do the lab.
 
+Launch Chrome browser (via KASM-Desktop link).
 
 ..  image:: /_static/intro/kasm-0.png
-
-
-Login to Desktop browser (Chrome) with the following credential.
-
-+----------------+---------------+
-| **Username**   | f5            |
-+----------------+---------------+
-| **Password**   | F5Passw0rd    |
-+----------------+---------------+
-
-
-..  image:: /_static/intro/kasm-1.png
 
 
 Access Kasm Desktop from the bookmark as shown below.
@@ -112,8 +101,7 @@ Ensure you allow text and images copies to the clipboard.
 
 ..  image:: /_static/intro/kasm-2.png
 
-Please notes that KASM desktop username is different from the Desktop (Chrome) browser.
-
+Please use the following username and password to login to KASM desktop.
 
 +----------------+---------------+
 | **Username**   | kasm_user     |
