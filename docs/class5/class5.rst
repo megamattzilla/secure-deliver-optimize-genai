@@ -386,6 +386,10 @@ Import AIGW policy configuration into Postman.
 ..  image:: ./_static/class5-10.png
 
 
+.. Attention::
+   DO NOT update Postman to the latest version. The latest version of Postman required you to authenticate and login to use the Postman import collection function. Unless, you have an existing Postman account, please do not update.
+
+
 Import into Postman collection. A copy of the postman collection located in **Documents** folder
 
 .. Note:: 
@@ -447,7 +451,7 @@ Confirm AIGW policy successfully applied via AIGW UI.
 --------------------------------------------------
 
 .. Attention::
-   You may skip the following step if you are using GPUaaS use case and you just need to update **ChatOpenAI Custom** node to point to AIGW API endpoint and jump to **Validate GenAI chatbot works via AIGW**
+   SKIP the following step if you are using GPUaaS use case and you just need to update **ChatOpenAI Custom** node to point to AIGW API endpoint (if you hasn't) and jump straight to `Validate GenAI chatbot works via AIGW <validate-genai-chatbot-works-via-aigw_>`_ section.
 
    .. code-block:: bash
 
@@ -494,8 +498,10 @@ Here a series of task that you may need to perform.
    You may leave the ChatOllama node without deleting it.  
 
 
+.. _validate-genai-chatbot-works-via-aigw:
+
 Validate GenAI chatbot works via AIGW
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+======================================
 
 Interact with the GenAI RAG chatbot with an example question like below:-
 
