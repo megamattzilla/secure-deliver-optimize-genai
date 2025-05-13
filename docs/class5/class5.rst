@@ -454,7 +454,7 @@ Confirm AIGW policy successfully applied via AIGW UI.
 
    **GPUaaS environment**
 
-   You need to update **ChatOpenAI Custom** node to point to AIGW API endpoint ash shown below. (if you haven't).
+   You need to update **ChatOpenAI Custom** node to point to AIGW API endpoint as shown below. (if you haven't).
 
    .. code-block:: bash
 
@@ -512,6 +512,10 @@ Validate GenAI chatbot works via AIGW
 ======================================
 
 Interact with the GenAI RAG chatbot with an example question like below:-
+
+
+..  image:: ./_static/class5-15-1.png
+
 
 .. code-block:: bash
 
