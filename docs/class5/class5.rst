@@ -454,7 +454,7 @@ Confirm AIGW policy successfully applied via AIGW UI.
 
    **GPUaaS environment**
 
-   You need to update **ChatOpenAI Custom** node to point to AIGW API endpoint ash shown below. (if you hasn't).
+   You need to update **ChatOpenAI Custom** node to point to AIGW API endpoint ash shown below. (if you haven't).
 
    .. code-block:: bash
 
