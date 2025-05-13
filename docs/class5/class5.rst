@@ -451,7 +451,10 @@ Confirm AIGW policy successfully applied via AIGW UI.
 --------------------------------------------------
 
 .. Attention::
-   SKIP the following step if you are using GPUaaS use case and you just need to update **ChatOpenAI Custom** node to point to AIGW API endpoint (if you hasn't) and jump straight to `Validate GenAI chatbot works via AIGW <validate-genai-chatbot-works-via-aigw_>`_ section.
+
+   **GPUaaS environment**
+
+   You need to update **ChatOpenAI Custom** node to point to AIGW API endpoint ash shown below. (if you hasn't).
 
    .. code-block:: bash
 
@@ -459,6 +462,11 @@ Confirm AIGW policy successfully applied via AIGW UI.
 
 
    ..  image:: ./_static/class5-12-a.png
+  
+   You may SKIP subsequent CPU environment and jump straight to `Validate GenAI chatbot works via AIGW <validate-genai-chatbot-works-via-aigw_>`_ section.
+
+
+
 
 
 **CPU environment**
