@@ -265,31 +265,38 @@ Create the following Nginx ingress resource to expose services externally from t
 
 
 .. code-block:: bash
+   :caption: Change directory to AIGW core.
 
    cd ~/ai-gateway/nginx-ingress-aigw
 
 .. code-block:: bash
+   :caption: Apply the master ingress manifest. This is the main ingress for host matching. Ingress need to cross namespace where "/" go to aigw and "/v1/models" go directly to ollama to bypass aigw.
 
    kubectl -n ai-gateway apply -f aigw-ingress-master.yaml
 
 .. code-block:: bash
+   :caption: Apply the minion ingress manifest. For "/" route to AIGW on ai-gateway namespace.
 
    kubectl -n ai-gateway apply -f aigw-ingress-minion.yaml
 
 .. code-block:: bash
+   :caption: Apply the minion ingress manifest. For "/v1/models" route to ollama on a different namespace.
 
    kubectl -n ai-gateway apply -f ~/ai-gateway/nginx-ingress-open-webui/open-webui-ingress-ollama-minion.yaml
 
 
 .. code-block:: bash
+   :caption: Apply ingress manifest for AIGW admin configuration service.
 
    kubectl -n ai-gateway apply -f aigw-config-ingress.yaml
 
 .. code-block:: bash
+   :caption: Apply ingress manifest for AIGW UI.
 
    kubectl -n ai-gateway apply -f aigw-ui-ingress.yaml
 
 .. code-block:: bash
+   :caption: Display all ingresses configured.
 
    kubectl -n ai-gateway get ingress
 
@@ -311,19 +318,23 @@ Confirm you can access the AIGW UI from Chrome browser
 Deploy NGINX ingress controller for AI Processor K8S.
 
 .. code-block:: bash
+   :caption: Change directory to AIGW Processor cluster.
 
    cd ~/ai-processor/nginx-ingress
 
 .. code-block:: bash
+   :caption: Create nginx-ingress namespace on AIGW Processor cluster to deploy nginx-ingress for AIGW processor cluster.
 
    kubectl create ns nginx-ingress
 
 .. code-block:: bash
+   :caption: Deploy nginx-ingress for AIGW processor cluster.
 
    helm -n nginx-ingress install nginxic \
    oci://ghcr.io/nginxinc/charts/nginx-ingress -f values.yaml --version 1.4.0
 
 .. code-block:: bash
+   :caption: Display to ensure pod and services for nginx-ingress running and ready.
 
    kubectl -n nginx-ingress get po,svc
 
@@ -339,18 +350,22 @@ Install AIGW processor helm chart
 ..  image:: ./_static/class5-8-0.png
 
 .. code-block:: bash
+   :caption: Change directory to aigw on AIGW Processor cluster.
 
    cd ~/ai-processor/aigw-v0.1/charts/aigw
 
 .. code-block:: bash
+   :caption: Create namespace ai-gateway on AIGW Processor cluster to host AIGW processor.
 
    kubectl create ns ai-gateway
 
 .. code-block:: bash
+   :caption: Install AIGW processor with helm.
 
    helm -n ai-gateway install ai-processor -f values-ai-processor.yaml .
 
 .. code-block:: bash
+   :caption: Get pod and svc to ensure AIGW processor running and ready.
 
    kubectl -n ai-gateway get po,svc
 
@@ -363,14 +378,17 @@ Install AIGW processor helm chart
 Create an Nginx ingress resource to expose AIGW Processor service externally from the Kubernetes cluster.
 
 .. code-block:: bash
+   :caption: Change directory to aigw-processor on AIGW Processor cluster.
 
    cd ~/ai-processor/
 
 .. code-block:: bash
+   :caption: Deploy nginx-ingress manifest to expose AIGW processor.
 
    kubectl -n ai-gateway apply -f aiprocessor-ingress.yaml
 
 .. code-block:: bash
+   :caption: Get ingress status to ensure ingress created.
 
    kubectl -n ai-gateway get ingress
 
@@ -420,10 +438,12 @@ Imported AIGW policy collection onto Postman.
 Monitor AIGW Core logs from a Linux terminal.
 
 .. code-block:: bash
+   :caption: Change directory to ai-gateway on AIGW Core cluster.
 
    cd ~/ai-gateway
 
 .. code-block:: bash
+   :caption: Tail or monitoring pod logs on kubernetes pod with label name=aigw.
 
     kubectl -n ai-gateway logs -f -l app.kubernetes.io/name=aigw
 
@@ -457,6 +477,7 @@ Confirm AIGW policy successfully applied via AIGW UI.
    You need to update **ChatOpenAI Custom** node to point to AIGW API endpoint as shown below. (if you haven't).
 
    .. code-block:: bash
+      
 
     https://aigw.ai.local/v1
 
@@ -518,10 +539,12 @@ Interact with the GenAI RAG chatbot with an example question like below:-
 
 
 .. code-block:: bash
+   :caption: Input below in the Flowise Chat.
 
    Who is chairman of the board
 
 .. code-block:: bash
+   :caption: Input below in the Flowise Chat.
 
    tell me member of the board of director
 
@@ -532,10 +555,11 @@ You may need to make multiple queries, as hallucinations can occur. Meanwhile, m
 You may use the following command (terminal CLI) to monitor AIGW logs if you hasn't got a terminal to monitor AIGW logs.
 
 .. code-block:: bash
-
+   :caption: Change directory to ai-gatway directory on AIGW core cluster.
    cd ~/ai-gateway
 
 .. code-block:: bash
+   :caption: Tail or monitoring pod logs on kubernetes pod with label name=aigw.
 
    kubectl -n ai-gateway logs -f -l app.kubernetes.io/name=aigw
 
@@ -556,22 +580,27 @@ Create an Nginx ingress resource to expose simply-chat service externally from t
 
 
 .. code-block:: bash
+   :caption: Change directory to switch to WebApps K8s Cluster.
 
    cd ~/webapps/simply-chat
 
 .. code-block:: bash
+   :caption: Create simply-chat namespace to host simply-chat apps.
 
    kubectl create ns simply-chat
 
 .. code-block:: bash
+    :caption: Deploy simply-chat apps.
 
    kubectl -n simply-chat apply -f simply-chat.yaml
 
 .. code-block:: bash
+    :caption: Deploy simply-chat ingress.
 
    kubectl -n simply-chat apply -f simply-chat-ingress.yaml
 
 .. code-block:: bash
+    :caption: Validate to ensure pod, service and ingress created.
 
    kubectl -n simply-chat get po,svc,ingress
 
@@ -1129,6 +1158,7 @@ Below should return model by llama3.2:1b
 
 
 .. code-block:: bash
+    :caption: Copy and paste below in simply-chat chatbot.
 
    who created you
 
@@ -1153,6 +1183,7 @@ Example logs
 Below should return model by qwen2.5:1b
 
 .. code-block:: bash
+    :caption: Copy and paste below in simply-chat chatbot.
 
    谁创造了你
 
@@ -1304,6 +1335,7 @@ Select the file **arcadia-team-with-sensitve-data-v2.txt**
 Click on Models and “+” to add a new custom model. Type a name for the model **Arcadia Corp AI Services**, select the base model as **qwen2.5:1.5b** or **llama3** if your environment have GPUaaS.
 
 ..Note:: 
+  
    You may try to experience with qwen2.5:1.5b or llama3 to see the difference outcome with different level of model intelligent.
 
 ..  image:: ./_static/class5-22.png
@@ -1510,10 +1542,12 @@ In this use case, we will test a direct prompt injection.
 From a separate terminal, monitor AIGW Core logs.
 
 .. code-block:: bash
+    :caption: Change directory to ai-gatway to switch to AIGW core cluster.
 
    cd ~/ai-gateway
 
 .. code-block:: bash
+    :caption: Monitor AIGW core logs with apps label of aigw
 
     kubectl -n ai-gateway logs -f -l app.kubernetes.io/name=aigw
 
