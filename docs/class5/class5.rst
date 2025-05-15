@@ -154,6 +154,14 @@ For details, please refer to official documentation. Here a brief description.
               targets:
                   apiKey: OPENAI_PUBLIC_API_KEY
     
+Recap
+-----
+Before you continue with this lab, here is a recap on what has been done/completed and what the pending/to-do task. This lab is to learn how to deploy F5 AI Gateway and configure AIGW policy.
+
+..  image:: ./_static/class5-1-0-0.png
+
+
+
 2 - Deploy F5 AI Gateway
 ------------------------
 
@@ -1335,7 +1343,7 @@ Select the file **arcadia-team-with-sensitve-data-v2.txt**
 Click on Models and “+” to add a new custom model. Type a name for the model **Arcadia Corp AI Services**, select the base model as **qwen2.5:1.5b** or **llama3** if your environment have GPUaaS.
 
 ..Note:: 
-  
+
    You may try to experience with qwen2.5:1.5b or llama3 to see the difference outcome with different level of model intelligent.
 
 ..  image:: ./_static/class5-22.png
