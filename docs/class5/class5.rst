@@ -453,7 +453,7 @@ Monitor AIGW Core logs from a Linux terminal.
 .. code-block:: bash
    :caption: Tail or monitoring pod logs on kubernetes pod with label name=aigw.
 
-    kubectl -n ai-gateway logs -f -l app.kubernetes.io/name=aigw
+   kubectl -n ai-gateway logs -f -l app.kubernetes.io/name=aigw
 
 From Postman, expand the uploaded collection and select **ai-deliver-optimize-default-rag-pii-pol** and click **Send** to create AIGW configuration.
 
@@ -564,6 +564,7 @@ You may use the following command (terminal CLI) to monitor AIGW logs if you has
 
 .. code-block:: bash
    :caption: Change directory to ai-gatway directory on AIGW core cluster.
+   
    cd ~/ai-gateway
 
 .. code-block:: bash
@@ -598,17 +599,17 @@ Create an Nginx ingress resource to expose simply-chat service externally from t
    kubectl create ns simply-chat
 
 .. code-block:: bash
-    :caption: Deploy simply-chat apps.
+   :caption: Deploy simply-chat apps.
 
    kubectl -n simply-chat apply -f simply-chat.yaml
 
 .. code-block:: bash
-    :caption: Deploy simply-chat ingress.
+   :caption: Deploy simply-chat ingress.
 
    kubectl -n simply-chat apply -f simply-chat-ingress.yaml
 
 .. code-block:: bash
-    :caption: Validate to ensure pod, service and ingress created.
+   :caption: Validate to ensure pod, service and ingress created.
 
    kubectl -n simply-chat get po,svc,ingress
 
@@ -1149,10 +1150,12 @@ AI Gateway Policy - GPUaaS ::
 Launch another terminal and tail AIGW logs.
 
 .. code-block:: bash
+   :caption: Change directory to ai-gateway on AIGW core cluster.
 
    cd ~/ai-gateway
 
 .. code-block:: bash
+   :caption: Tail or monitoring pod logs on kubernetes pod with label name=aigw.
 
    kubectl -n ai-gateway logs -f -l app.kubernetes.io/name=aigw
 
@@ -1166,7 +1169,7 @@ Below should return model by llama3.2:1b
 
 
 .. code-block:: bash
-    :caption: Copy and paste below in simply-chat chatbot.
+   :caption: Copy and paste below in simply-chat chatbot.
 
    who created you
 
@@ -1191,7 +1194,7 @@ Example logs
 Below should return model by qwen2.5:1b
 
 .. code-block:: bash
-    :caption: Copy and paste below in simply-chat chatbot.
+   :caption: Copy and paste below in simply-chat chatbot.
 
    谁创造了你
 
@@ -1342,8 +1345,7 @@ Select the file **arcadia-team-with-sensitve-data-v2.txt**
 
 Click on Models and “+” to add a new custom model. Type a name for the model **Arcadia Corp AI Services**, select the base model as **qwen2.5:1.5b** or **llama3** if your environment have GPUaaS.
 
-..Note:: 
-
+.. Note:: 
    You may try to experience with qwen2.5:1.5b or llama3 to see the difference outcome with different level of model intelligent.
 
 ..  image:: ./_static/class5-22.png
@@ -1550,14 +1552,14 @@ In this use case, we will test a direct prompt injection.
 From a separate terminal, monitor AIGW Core logs.
 
 .. code-block:: bash
-    :caption: Change directory to ai-gatway to switch to AIGW core cluster.
+   :caption: Change directory to ai-gatway to switch to AIGW core cluster.
 
    cd ~/ai-gateway
 
 .. code-block:: bash
-    :caption: Monitor AIGW core logs with apps label of aigw
+   :caption: Monitor AIGW core logs with apps label of aigw
 
-    kubectl -n ai-gateway logs -f -l app.kubernetes.io/name=aigw
+   kubectl -n ai-gateway logs -f -l app.kubernetes.io/name=aigw
 
 Test prompt-injection from Open-WebUI.
 
