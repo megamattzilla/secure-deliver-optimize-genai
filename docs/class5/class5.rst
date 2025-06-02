@@ -500,7 +500,23 @@ Confirm AIGW policy successfully applied via AIGW UI.
 
 **CPU environment**
 
-Currently, GenAI RAG chatbot pointing to the Ollama API. Update GenAI RAG Chatbot to point to AIGW API endpoint.
+Currently, GenAI RAG chatbot pointing to a different Ollama API endpoint. Update GenAI RAG Chatbot to point to AIGW API endpoint if it's not done.
+
+
+.. Attention::
+
+   Ensure **ChatOpenAI Custom** node to point to AIGW API endpoint as shown below. (if you haven't).
+
+   .. code-block:: bash
+      
+
+    https://aigw.ai.local/v1
+
+
+   ..  image:: ./_static/class5-12-a.png
+  
+   Then, you can jump straight to `Validate GenAI chatbot works via AIGW <validate-genai-chatbot-works-via-aigw_>`_ section.
+
 
 Click the “+” button in the Flowise UI and search using keyword “custom”. We are going to use **ChatOpenAI Custom** node
 
