@@ -182,8 +182,6 @@ Repeat the above to download the following LLM model
 +----------------------------+---------------------------------------------+
 | llama3.2:1b                | Meta Llama3.2 (1b)                          |
 +----------------------------+---------------------------------------------+
-| llama3                     | Meta Llama 3 (8b) - only use for GPUaaS     |
-+----------------------------+---------------------------------------------+
 | qwen2.5:1.5b               | Alibaba Cloud Qwen2 (1.5b)                  |
 +----------------------------+---------------------------------------------+
 | hangyang/rakutenai-7b-chat | Rakuten AI (7b)                             |
@@ -312,7 +310,7 @@ values.yaml ::
    image:
      registry: reg.ai.local
      repository: flowiseai/flowise
-     tag: 2.2.3  
+     tag: 3.0.4  
 
    serviceAccount:
      create: true   
@@ -356,10 +354,16 @@ Create an Nginx ingress resource to **expose FlowiseAI/Langchain service** exter
 Confirm that you can login and access to LLM orchestrator (flowise)
 
 .. attention:: 
-   If no login prompt as shown below, likely credential was cache in the browser during the building phase of the lab. You can either do a clear browser cache or safely ignore if it doesn't ask for password.
+   You will asked to register. This username and password will be use to login in future. Use the following suggested credential
+
+   Administrator Email: f5ai@f5.com
+
+   Password: @F5Passw0rd
 
 
 ..  image:: ./_static/class3-15.png
+
+..  image:: ./_static/class3-15-1.png   
 
 Import arcadia RAG chatflow into flowise. Select **Add New**, click **Settings icons** and **Load Chatflow**
 
@@ -369,11 +373,9 @@ A copy of the chatflow located on the jumphost **Documents** directory. Select t
 
 
 .. Note:: 
-   Ensure you choose the right json file according to the environment use cases - CPU or GPUaaS.
+   Ensure you choose the right json file.
 
-   CPU - "*arcadia-rag Chatflow.json*"
-
-   GPUaaS - "*arcadia-rag-gpuaas Chatflow.json*"
+   "*arcadia-rag Chatflow.json*"
 
 
 ..  image:: ./_static/class3-17-1.png
@@ -387,16 +389,6 @@ Save the chatflow (arcadia-rag)
 
 ..  image:: ./_static/class3-18-1.png
 
-.. attention:: 
-   **For GPUaaS ONLY** 
-   
-   Ensure you have a valid GPUaaS API key (if your lab based on GPU) and create as following:-
-
-   ..  image:: ./_static/class3-18-2.png
-
-   ..  image:: ./_static/class3-18-3.png
-
-   
 
 To successfully build the full langchain pipeline / chatflow, you need to upload organization context information into the RAG pipeline. Arcadia context information file located in the **Documents** directory. Under **Text File** node, Click **Upload File**
 
@@ -557,34 +549,6 @@ Here are some of the node/chain used.
 |                                             | storage mechanism for storing/retrieving conversations.               |
 +---------------------------------------------+-----------------------------------------------------------------------+
 
-.. Attention:: 
-
-   **For GPUaaS ONLY**
-
-   +---------------------------------------------+-----------------------------------------------------------------------+
-   | Node / Chain                                | Description                                                           |
-   +=============================================+=======================================================================+
-   |  **ChatOpenAI Custom**                      | Custom/FineTuned model using OpenAI Chat compatible API.              |
-   |                                             |                                                                       |
-   |  Connect Credential                         |                                                                       |
-   |                                             |                                                                       |
-   |     gpuaas-key                              | Ensure you obtains a valid GPUaaS API key                             |                    
-   |                                             |                                                                       |
-   |  Base URL URL:                              |                                                                       |
-   |                                             |                                                                       |
-   |     https://api.gpu.nextcnf.com/v1          | This is the GPUaaS API inference endpoint                             |
-   |                                             |                                                                       |
-   |  Model Name:                                |                                                                       |
-   |                                             |                                                                       |
-   |     llama3                                  | llama3 will be use for the inference. Its 8B parameter model          |
-   |                                             |                                                                       |
-   |  Temperature:                               |                                                                       |
-   |                                             |                                                                       |
-   |      0.9                                    |                                                                       |
-   +---------------------------------------------+-----------------------------------------------------------------------+
-
-
-
 
 Vectorize Proprietary Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -641,7 +605,7 @@ Input on the chat box
 
 
 .. attention:: 
-   If you are using CPU for inference. Hence, expect some delay in the response.
+   Since you are using CPU for inference. Hence, expect some delay in the response.
 
 
 Sample RAG Chatbot conversation
