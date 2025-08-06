@@ -102,6 +102,30 @@ Low temperature (close to 0) makes the output more deterministic and focused. Mo
 High temperature (closer to 1 or above) increases randomness and creativity. Model is more likely to choose less probable words. Outputs become more diverse and unpredictable. Can generate more unique and imaginative responses.
 
 
+What is AI Agent?
+~~~~~~~~~~~~~~~~~
+An AI agent is a software program or system that uses artificial intelligence techniques to perform tasks, make decisions, or interact with users autonomously or semi-autonomously. AI agents can analyze data, learn from experiences, and adapt their behavior based on the information they receive. Typically, AI Agents follow step-by-step instructions but do not set their own objectives. Their actions server immediate, predefined tasks.
+
+What is Agentic AI?
+~~~~~~~~~~~~~~~~~~~
+Agentic AI refers to a type of artificial intelligence that possesses the ability to act autonomously and make decisions based on its understanding of the environment. It goes beyond traditional AI systems by incorporating elements of agency, allowing it to take actions, pursue goals, and adapt its behavior in dynamic situations. Typically, Agentic AI actively pursues high-level goals. It decomposes complext task into smaller actions, self-corrects, and iterates toward long-term objectives.
+
+
+What the difference between Agentic AI and Agentic RAG?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Agentic AI refers to AI systems that can act autonomously and make decisions based on their understanding of the environment. It focuses on the AI's ability to take actions, pursue goals, and adapt its behavior in dynamic situations. Agentic RAG, on the other hand, is a specific application of Agentic AI that combines retrieval-augmented generation with agent-like behavior. It allows the AI to actively interact with external tools, APIs, or knowledge sources to perform tasks beyond just retrieval and generation.
+
+What is Model Context Protocol?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Model Context Protocol (MCP) is a standardized way to manage and share context information between different AI models or systems. It defines how context is structured, transmitted, and utilized to ensure that AI models can effectively communicate and collaborate with each other. MCP helps maintain consistency in context representation, enabling models to understand and use shared context information for better decision-making and task execution. Its also commonly rerfer to as universal AI Adaptor - "USB-C".
+
+What is Google Agent to Agent Protocol?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Google Agent to Agent Protocol (A2A) is a framework developed by Google to enable communication and interaction between different AI agents or systems. It provides a standardized way for agents to exchange information, collaborate on tasks, and share context. A2A allows AI agents to work together more effectively, leveraging each other's capabilities and knowledge to achieve common goals. It facilitates interoperability between different AI systems, making it easier to integrate and utilize multiple AI agents in various applications.
+
+|
+|
+
 .. NOTE::
        No explicit action required for this class. Ensure you read and  understand.
        A strong understanding of those fundamental are essential. 

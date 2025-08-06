@@ -102,16 +102,10 @@ With the growing popularity of Generative AI, your organization has decided to u
 
 Create an Nginx ingress resource to **expose the Open-WebUI service** externally from the Kubernetes cluster.
 
-.. Note:: 
-   We also create ingress for Ollama. We leverage mergable ingress resource for Nginx as we will need cross namespace access. 
-
 .. code-block:: bash
 
    cd ~/ai-gateway/nginx-ingress-open-webui/
 
-.. code-block:: bash
-
-   ls -l
 
 .. code-block:: bash
 
@@ -120,10 +114,6 @@ Create an Nginx ingress resource to **expose the Open-WebUI service** externally
 .. code-block:: bash
 
    kubectl -n open-webui apply -f ollama-ingress-http.yaml
-
-.. code-block:: bash
-
-   kubectl -n open-webui apply -f open-webui-ingress-ollama-minion.yaml
 
 
 .. code-block:: bash
@@ -178,7 +168,7 @@ Repeat the above to download the following LLM model
 +============================+=============================================+
 | phi3                       | Microsoft (3.8b)                            |
 +----------------------------+---------------------------------------------+
-| phi3.5                     | Microsoft (3.8b)                            |
+| llama3.2:3b                | Meta Llama3.2 (3b)                          |
 +----------------------------+---------------------------------------------+
 | llama3.2:1b                | Meta Llama3.2 (1b)                          |
 +----------------------------+---------------------------------------------+
@@ -193,9 +183,27 @@ Repeat the above to download the following LLM model
 
 Ensure you have all the model downloaded before you proceed.
 
+ALTERNATIVELY, you can use the following command on the Linux jumphost to download those models.
+
+.. code-block:: bash
+
+   cd ~/ai-gateway
+
+.. code-block:: bash
+
+   kubectl -n open-webui exec ollama-0 -- ollama pull phi3
+   kubectl -n open-webui exec ollama-0 -- ollama pull llama3.2:3b
+   kubectl -n open-webui exec ollama-0 -- ollama pull llama3.2:1b
+   kubectl -n open-webui exec ollama-0 -- ollama pull qwen2.5:1.5b
+   kubectl -n open-webui exec ollama-0 -- ollama pull hangyang/rakutenai-7b-chat
+   kubectl -n open-webui exec ollama-0 -- ollama pull nomic-embed-text
+   kubectl -n open-webui exec ollama-0 -- ollama pull codellama:7b
+
+..  image:: ./_static/class3-10-a.png
+
 ..  image:: ./_static/class3-11.png
 
-Test interacting with LLM model. Feel free to test with different language model.
+Test interacting with LLM model. Feel free to test with different language model. Example, test following prompt by selecting **qwen2.5:1.5b**.
 
 .. code-block:: bash
 
@@ -215,7 +223,11 @@ Test interacting with LLM model. Feel free to test with different language model
 
 
 .. attention:: 
-   Please do note that UDF environment were setup with CPU (no GPU). Hence, all model inference will run on CPU instead of GPU. Performance may not be optimum but should be acceptable for lab. Please be patience as it depends on CPU consumption at that time of inference. First inference of the model may be slow and should be alright after that.
+   Please do note that UDF environment were setup with CPU (no GPU). Hence, all model inference will run on CPU instead of GPU. Performance may not be optimum but should be acceptable for lab. Please be patience as it depends on CPU consumption at that time of inference. First inference of the model may be slow as Ollama loading the model. Subsequent request should be faster. However, when you change model, Ollama will unload the previous model and load the new model. Hence, first inference of the new model may be slow again.
+
+   FYI, here the CPU usages when inference happening on the ai-gateway node where Ollama is running. All CPU (total 8) and memory will go close to 100% when inference is happening. Hence, typically GPU is recommended.
+
+   ..  image:: ./_static/class3-11-a.png
 
 
 ..  image:: ./_static/class3-12.png
@@ -267,13 +279,6 @@ ollama-ingress-http.yaml ::
 
 Deploy LLM Orchstrator to facilitate AI component communication. Flowise AI - an open source low-code tool for developer to build customized LLM orchstration flow and AI agent is used. (https://flowiseai.com/). Flowise complements LangChain by offering a visual interface.
 
-.. code-block:: bash
-
-   cd ~/webapps/
-
-.. code-block:: bash
-
-   ls
 
 .. code-block:: bash
 
@@ -619,7 +624,7 @@ Suggested sample question ask to the RAG chatbot
 
 .. code-block:: bash
 
-   give me all the name from the board of director
+   who are members of the board of arcadia
 
 .. code-block:: bash
 
