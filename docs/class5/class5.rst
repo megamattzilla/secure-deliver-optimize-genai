@@ -257,6 +257,20 @@ In this class, we will deploy F5 AI Gateway and configure AIGW policy to secure 
 
 ..  image:: ./_static/class5-2-0.png
 
+From Windows 10 remote desktop, Launch a putty session and login with the following credential.
+
++----------------+---------------+
+| **Username**   | ubuntu        |
++----------------+---------------+
+| **Password**   | HelloUDF      |
++----------------+---------------+
+
+..  image:: ../_static/intro/intro-2.png
+
+You should be able to get the following prompt on "reg" server.
+
+..  image:: ../_static/intro/intro-3.png
+
 .. code-block:: bash
    :caption: Switch to ai-gateway K8S by changing to the directory. ai-gateway kubeconfig will automatically loaded.
 
@@ -480,10 +494,24 @@ Monitor AIGW Core logs from a another terminal.
 
 5 - Update LLM Orchestrator to point to AI Gateway
 --------------------------------------------------
+Confirm that you can login and access LLM orchestrator (flowise)
+
+From the windows 10 Jumphost, open Google Chrome and select the bookmark for "LLM Orch - Flowise".
+
+Use the following credentials
 
 
-Currently, GenAI RAG chatbot pointing to a different Ollama API endpoint. Update GenAI RAG Chatbot to point to AIGW API endpoint if it's not done.
++----------------+---------------+
+| **Email**      | f5ai@f5.com   |
++----------------+---------------+
+| **Password**   | @F5Passw0rd   |
++----------------+---------------+
 
+..  image:: ../class3/_static/class3-15-1.png   
+
+Under Chatflows, click arcadia-rag
+
+Currently, GenAI RAG chatbot pointing to a different Ollama API endpoint. Lets update GenAI RAG Chatbot to point to AIGW API endpoint.
 
 .. Attention::
 
@@ -503,6 +531,8 @@ Here a series of task that you may need to perform.
 1. Create a **Connect Credential.** We are going to use a dummy account
 
 ..  image:: ./_static/class5-13-1.png
+
+OpenAI API Key can be a dummy value. Example value: 42
 
 ..  image:: ./_static/class5-13-2.png
 
