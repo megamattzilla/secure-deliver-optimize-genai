@@ -156,7 +156,7 @@ For details, please refer to official documentation. Here a brief description.
                apiKey: GPUAAS_API_KEY
 
 Recap when starting at Class 5. If you just performed Class 4, skip to 2 - Deploy F5 AI Gateway.
------
+------------------------------------------------------------------------------------------------
 Before you continue with this lab, here is a recap on what has been done/completed and what the pending/to-do task. This lab is to learn how to deploy F5 AI Gateway and configure AIGW policy.
 
 ..  image:: ./_static/class5-1-0-0.png
@@ -210,6 +210,10 @@ Try to interact with GenAI RAG Chatbot.
 
 ..  image:: ../class4/_static/class4-9.png
 
+.. NOTE::
+
+   You may need to make multiple repeated queries, to provide more data to the smaller CPU inferencing AI model.
+
 
 .. attention:: 
    You may occasionally see document identifiers, such as *"<doc id='2'>,"* appear in the response output. This issue can arise for several reasons, such as inadequate post-processing where metadata is not properly cleaned or removed, or during pre-processing when data is tagged with metadata that the model interprets as legitimate text. In this particular lab, the issue is likely due to a combination of factors, including the inference and embedding model's behavior and the use of a CPU for processing. **For the purposes of this class, please ignore if any imperfection of the AI responses.**
@@ -222,7 +226,7 @@ The GenAI RAG chatbot after asking both questions. Sometimes you may need to ask
 ..  image:: ../class4/_static/class4-10.png
 
 .. attention:: 
-   As shown above, GenAI RAG Chatbot exposed sensitive information (PII) - **OWASP Top 10 - LLM01:2025 Sensitive Information Disclosure**. We need to leverage F5's AI Gateway to redact PII data  
+   As shown above, GenAI RAG Chatbot exposed sensitive information (PII) - **OWASP Top 10 - LLM01:2025 Sensitive Information Disclosure**. We need to leverage F5's AI Gateway to redact PII data
 
 Apart from exposing sensitive information (PII), the chatbot also reveal sensitive data via system prompt leakage - **OWASP Top 10 - LLM07:2025 System Prompt Leakage**.
 
@@ -471,7 +475,7 @@ Update AIGW policy by upgrading the helm chart with the AIGW configuration file.
    cd ~/ai-gateway/aigw-core/
 
 .. code-block:: bash
-   :caption: Update the aigw-core value file with the embeded policy.
+   :caption: Update the aigw-core value file with the embedded policy.
 
    helm -n ai-gateway upgrade aigw -f values-aigw-core.yaml .
 
@@ -494,7 +498,7 @@ Monitor AIGW Core logs from a another terminal.
 
 5 - Update LLM Orchestrator to point to AI Gateway
 --------------------------------------------------
-Confirm that you can login and access LLM orchestrator (flowise)
+Confirm that you can login and access LLM orchestrator (Flowise)
 
 From the windows 10 Jumphost, open Google Chrome and select the bookmark for "LLM Orch - Flowise".
 
@@ -576,7 +580,7 @@ You may need to make multiple queries, as hallucinations can occur or LLM may re
 You may use the following command (terminal CLI) to monitor AIGW logs if you hasn't got a terminal to monitor AIGW logs.
 
 .. code-block:: bash
-   :caption: Change directory to ai-gatway directory on AIGW core cluster.
+   :caption: Change directory to ai-gateway directory on AIGW core cluster.
    
    cd ~/ai-gateway
 
@@ -1110,10 +1114,29 @@ Here is the AIGW data-security policy that is applied to Arcadia RAG Chatbot. It
                 value: "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[0-2])/[0-9]{4}"
 
 
-Sensitive Information Prevention - via unintentially by Employee
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sensitive Information Prevention - via unintentionally by Employee
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In our previous steps, we had install and setup Open-WebUI portal. It is a simple chat frontend that allows users to interact with the LLM model. In this section, we will implement a governance layer to the interaction with LLM model by enforcing traffic through AIGW. This will allow us to apply respective AI security policy.
+In a previous step, we installed and setup Open-WebUI portal. It is a simple chat frontend that allows users to interact with the LLM model. In this section, we will implement a governance layer to the interaction with LLM model by enforcing traffic through AIGW. This will allow us to apply respective AI security policy.
+
+From the Windows 10 Jumphost, open the Chrome browser, and confirm you can access the Open-Webui service.
+
+..  image:: ../class3/_static/class3-6.png
+
+Login to Open-WebUI
+
+
++----------------+---------------+
+| **Email**      | f5ai@f5.com   |
++----------------+---------------+
+| **Password**   | F5Passw0rd    |
++----------------+---------------+
+
+..  image:: ../class3/_static/class3-8.png
+
+.. Note::
+   You do not need to update Open-WebUI to the latest version when prompted. This lab has been tested with the currently installed version, so you can safely ignore the update recommendation.
+
 
 Simulate sending out sensitive information by employee.
 
@@ -1125,19 +1148,40 @@ Simulate sending out sensitive information by employee.
 ..  image:: ./_static/class5-37-a.png
 
 
-Update Open-WebUI to use AIGW as the inference endpoint.
+Open-WebUI configuration is using the LLM model endpoint directly.
 
-Existing Open-WebUI configuration is using the LLM model endpoint directly. We will update it to use AIGW as the inference endpoint.
+Now, lets update Open-WebUI to use AIGW as the inference endpoint.
 
-For API key, can be any value (e.g. f5123), as AIGW will not validate the API key.
+.. NOTE::
+
+   You may need to click the Hamburger button on the left to reveal the Admin Panel option (pictured).
+
+Then navigate to Settings -> Connections.
+
 
 ..  image:: ./_static/class5-37-b.png
 
-Update
+Update the following settings:
+
+
++------------------------+------------------------------+
+| **OpenAI API URL**     | https://aigw.ai.local/rag/v1 |
++------------------------+------------------------------+
+| **Open AI API Key**    | 42                           |
++------------------------+------------------------------+
+| **Ollama API**         | Toggle slider OFF            |
++------------------------+------------------------------+
+| **Direct Connections** | Toggle slider OFF            |
++------------------------+------------------------------+
+
+
+API key, can be any value (e.g. 42), as AIGW will not validate the API key.
+
+Click **Save**
 
 ..  image:: ./_static/class5-37-c.png
 
-Validate the outcome by sending out sensitive information.
+Start a new chat and validate the outcome by sending out sensitive information.
 
 .. code-block:: bash
 
@@ -1147,12 +1191,13 @@ Validate the outcome by sending out sensitive information.
 
 .. NOTE:: 
 
-   You may need to make multiple repeated queries, as LLM occasinally may not response when it sees sensitive data. This also cloud be attributed because our environment is running on CPU.
+   You may need to make multiple repeated queries, as LLM occasionally may not response when it sees sensitive data. This also cloud be attributed because our environment is running on CPU.
+   You can also try asking: "echo this text please: S0000004C"
 
 Direct Prompt Injection
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-A Prompt Injection Vulnerability occurs when user prompts alter the LLM’s behaviour or output in unintended ways. These inputs can affect the model even if they are imperceptible to humans, therefore prompt injections do not need to be human-visible/readable, as long as the content is parsed by the model.
+A Prompt Injection Vulnerability occurs when user prompts alter the LLM’s behavior or output in unintended ways. These inputs can affect the model even if they are imperceptible to humans, therefore prompt injections do not need to be human-visible/readable, as long as the content is parsed by the model.
 
 Type of Prompt Injection
 
@@ -1164,7 +1209,7 @@ In this use case, we will test a direct prompt injection.
 From a separate terminal, monitor AIGW Core logs.
 
 .. code-block:: bash
-   :caption: Change directory to ai-gatway to switch to AIGW core cluster.
+   :caption: Change directory to ai-gateway to switch to AIGW core cluster.
 
    cd ~/ai-gateway
 
@@ -1178,7 +1223,7 @@ From a separate terminal, monitor AIGW Core logs.
 
 Test prompt-injection from Arcadia RAG Chatbot
 
-In end of Class 4 (before implment AI security protection), we experience that Arcadia RAG Chatbot vulnerable to OWASP Top 10 - LLM07:2025 - System Prompt Leakage via a direct prompt injection. In this section, we will test the prompt-injection attack vector against Arcadia RAG Chatbot but this time, we will leverage the AIGW prompt-injection processor to detect and prevent the prompt-injection attack. 
+In end of Class 4 (before implementation of AI security protection), we experienced that Arcadia RAG Chatbot was vulnerable to OWASP Top 10 - LLM07:2025 - System Prompt Leakage via a direct prompt injection. In this section, we will test the prompt-injection attack vector against Arcadia RAG Chatbot but this time, we will leverage the AIGW prompt-injection processor to detect and prevent prompt-injection attacks.
 
 
 .. code-block:: bash
@@ -1188,10 +1233,14 @@ In end of Class 4 (before implment AI security protection), we experience that A
 
 ..  image:: ./_static/class5-37-e.png
 
+.. NOTE::
+
+   The chatbot response will be delayed. AI Gateway is blocking the request as expected, but our LLM Orchestrator Flowise is retrying the request. After some time, a timeout message will be provided to the user. A custom error message can be configured in Flowise in a future lab to handle this use-case.
+
 Example logs shown **AIGW_POLICY_VIOLATION**. **Possible Injection detected**. This is the expected outcome, as we have successfully prevented the prompt-injection attack.
 
 
-Alternatively, you can also use similar prompt-injection attack vector on Open-WebUI.
+Alternatively, for a quicker response, you can attempt similar prompt-injection attacks on Open-WebUI.
 
 ..  image:: ./_static/class5-37-j.png
 
