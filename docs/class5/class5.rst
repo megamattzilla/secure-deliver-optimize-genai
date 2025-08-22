@@ -155,8 +155,11 @@ For details, please refer to official documentation. Here a brief description.
              targets:
                apiKey: GPUAAS_API_KEY
 
-Recap when starting at Class 5. If you just performed Class 4, skip to 2 - Deploy F5 AI Gateway.
-------------------------------------------------------------------------------------------------
+Recap when starting at Class 5.
+-------------------------------
+
+If you just performed Class 4, skip to `part 2 - Deploy F5 AI Gateway <#deploy-f5-ai-gateway>`_
+
 Before you continue with this lab, here is a recap on what has been done/completed and what the pending/to-do task. This lab is to learn how to deploy F5 AI Gateway and configure AIGW policy.
 
 ..  image:: ./_static/class5-1-0-0.png
@@ -168,9 +171,13 @@ RDP to access Windows10 Jumphost.
 
 ..  image:: ../_static/intro/intro-5.png
 
+.. attention:: 
+   Some user workstations do not permit outbound RDP. If RDP is not working, use the HTTP KASM Jumphost. Instructions here: https://clouddocs.f5.com/training/community/genai/html/prerequisite/prerequisite.html#kasm-desktop 
+
 Windows 10 RDP login password can be obtained as following
 
 ..  image:: ../_static/intro/intro-6.png
+
 
 Window 10 Jumphost
 
@@ -513,43 +520,73 @@ Use the following credentials
 
 ..  image:: ../class3/_static/class3-15-1.png   
 
-Under Chatflows, click arcadia-rag
+Click the icon to change Flowise UI to dark mode.
 
-Currently, GenAI RAG chatbot pointing to a different Ollama API endpoint. Lets update GenAI RAG Chatbot to point to AIGW API endpoint.
+ ..  image:: ./_static/class5-12-b.png   
+
+Click **arcadia-rag**
+
+ ..  image:: ./_static/class5-12-c.png 
+
+Currently, GenAI RAG chatbot points to a different Ollama API endpoint. Lets update GenAI RAG Chatbot to point to AIGW API endpoint.
 
 .. Attention::
 
-   By default **ChatOllama** node to point to Ollama API endpoint as shown below. We need to update LLM orchestrator to point to AIGW API endpoint. This require changes to **ChatOpenAI Custom** node. We are using OpenAI API schema to connect to AIGW API endpoint.
+   By default **ChatOllama** node points to Ollama API endpoint. We need to update LLM orchestrator to point to AIGW API endpoint. This require changes to **ChatOpenAI Custom** node. We are using OpenAI API schema to connect to AIGW API endpoint.
 
 
-Click the “+” button in the Flowise UI and search using keyword “custom”. We are going to use **ChatOpenAI Custom** node
+Pan the Flowise UI to the top right by holding left-click and moving the mouse.
 
-Drag the **ChatOpenAI Custom** node onto the FlowiseAI canvas.
+ ..  image:: ./_static/class5-12-d.png 
 
-..  image:: ./_static/class5-12.png
+Click the “+” button in the Flowise UI 
 
-Here a series of task that you may need to perform.
+ ..  image:: ./_static/class5-12-e.png 
+
+Search using keyword “custom”. We are going to use **ChatOpenAI Custom** node
+
+Drag the **ChatOpenAI Custom** node onto the FlowiseAI canvas to the top-right of the space (above the other objects). 
+
+..  image:: ./_static/class5-12-f.png
+
+Overview - We will be performing multiple tasks on this node.
 
 ..  image:: ./_static/class5-13.png
 
-1. Create a **Connect Credential.** We are going to use a dummy account
+1. Create a **Connect Credential** by clicking once in the empty field. We are going to create a dummy account called dummy-api-key.
 
 ..  image:: ./_static/class5-13-1.png
 
-OpenAI API Key can be a dummy value. Example value: 42
 
-..  image:: ./_static/class5-13-2.png
+
+Enter the following credentials.
+
+
++---------------------+---------------+
+| **CREDENTIAL NAME** | dummy-api-key |
++---------------------+---------------+
+| **OpenAI Api Key**  | 42            |
++---------------------+---------------+
+
+
+Then click Add.
+
+..  image:: ./_static/class5-13-2-a.png
 
 2. You need to provide the model name - **llama3.2:1b**
 
 ..  image:: ./_static/class5-13-3.png
 
 
-1. You need to add the AIGW API endpoint (**https://aigw.ai.local/rag/v1**) via **Additional Parameters**. **Streaming** is currently experimental support from version 1.2.0 onwards. We can leave streaming as default enabled.
+3. You need to add the AIGW API endpoint (**https://aigw.ai.local/rag/v1**) via **Additional Parameters**. **Streaming** is currently experimental support from version 1.2.0 onwards. We can leave streaming as default enabled.
 
 ..  image:: ./_static/class5-13-4.png
 
-4. Click the “x”  on the link to break the link between **ChatOllama with Conversational Retrieval QA Chain** and connect **Conversational Retrieval QA Chain** to **ChatOpenAI Custom** node. Click on save icon to save chatflow.
+4. Click the “x”  on the link to break the link between **ChatOllama with Conversational Retrieval QA Chain** 
+
+..  image:: ./_static/class5-14-a.png
+
+5. Connect **Conversational Retrieval QA Chain** to **ChatOpenAI Custom** node. Click on save icon to save chatflow.
 
 ..  image:: ./_static/class5-14.png
 
