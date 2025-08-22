@@ -155,8 +155,11 @@ For details, please refer to official documentation. Here a brief description.
              targets:
                apiKey: GPUAAS_API_KEY
 
-Recap when starting at Class 5. If you just performed Class 4, skip to 2 - Deploy F5 AI Gateway.
-------------------------------------------------------------------------------------------------
+Recap when starting at Class 5.
+-------------------------------
+
+If you just performed Class 4, skip to `part 2 - Deploy F5 AI Gateway <#deploy-f5-ai-gateway>`_
+
 Before you continue with this lab, here is a recap on what has been done/completed and what the pending/to-do task. This lab is to learn how to deploy F5 AI Gateway and configure AIGW policy.
 
 ..  image:: ./_static/class5-1-0-0.png
