@@ -36,6 +36,7 @@ jobs:
         python-version: '3.9'
         cache: 'pip'
     - name: Install dependencies
+      #Updated enchant to enchant-2
       run: |
         sudo apt update && sudo apt install -y enchant-2
         pip install -r requirements.txt
