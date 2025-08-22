@@ -37,7 +37,7 @@ jobs:
         cache: 'pip'
     - name: Install dependencies
       run: |
-        sudo apt update && sudo apt install -y enchant
+        sudo apt update && sudo apt install -y enchant-2
         pip install -r requirements.txt
         pip install sphinxcontrib-spelling
     - name: Run spell checker
